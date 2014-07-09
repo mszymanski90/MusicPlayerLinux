@@ -1,6 +1,8 @@
 #ifndef LOGGERDEVICE_H
 #define LOGGERDEVICE_H
 
+#include <iostream>
+#include <string>
 #include <QObject>
 
 class LoggerDevice : public QObject
@@ -12,6 +14,7 @@ public:
 signals:
 
 public slots:
+    void log(std::string message);
 
 };
 

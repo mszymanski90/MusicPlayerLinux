@@ -12,3 +12,18 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+QPushButton* MainWindow::getLoadFileBt()
+{
+    return ui->loadFileBt;
+}
+
+QPushButton* MainWindow::getPlayPauseBt()
+{
+    return ui->playPauseBt;
+}
+
+QPushButton* MainWindow::getStopBt()
+{
+    return ui->stopBt;
+}

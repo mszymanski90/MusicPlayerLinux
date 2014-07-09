@@ -1,18 +1,27 @@
 #ifndef MPLCORE_H
 #define MPLCORE_H
 
-#include <QObject>
+#include <string>
+#include "bass.h"
+#include "loggerdevice.h"
 
-class MPLCore : public QObject
+// fix that later
+#define MAX_PATH 100
+
+class MPLCore
 {
-    Q_OBJECT
+private:
+    HSTREAM _currentHStream;
+    LoggerDevice* _logger;
+
 public:
-    explicit MPLCore(QObject *parent = 0);
-
-signals:
-
-public slots:
-
+    MPLCore();
+    void init(LoggerDevice* logger);
+    void loadFile(std::string filePath);
+    void play();
+    void stop();
+    void pause();
+    void setVolume();
 };
 
 #endif // MPLCORE_H
