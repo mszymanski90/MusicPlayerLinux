@@ -25,7 +25,13 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = MusicPlayerLinux
 TEMPLATE = app
 
-LIBS += $$PWD/libbass.so
+linux-g++ {
+     LIBS += $$PWD/libbass.so
+ }
+
+win32-g++ {
+     LIBS += $$PWD/bass.lib
+ }
 
 SOURCES += main.cpp\
         mainwindow.cpp \

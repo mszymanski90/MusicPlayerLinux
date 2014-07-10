@@ -41,7 +41,7 @@ std::string MainApplication::getPathFromFileDialog()
          tr("Open file"), "/home/jana", tr("Image Files (*.mp3 *.m4a *.ogg)"));
 
     //return fileName.toStdString();
-    return std::string("./test_mp3.mp3");
+    return std::string("test_mp3.mp3");
 }
 
 void MainApplication::loadFile()

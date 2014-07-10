@@ -25,8 +25,11 @@
 #include "bass.h"
 #include "loggerdevice.h"
 
-// fix that later
-#define MAX_PATH 100
+
+#ifndef _WIN32
+    // fix this value later
+    #define MAX_PATH 100
+#endif
 
 class MPLCore
 {
