@@ -33,6 +33,7 @@ void MainApplication::init()
 
     connect(window.getLoadFileBt(), SIGNAL(clicked()), this, SLOT(loadFile()));
     connect(window.getPlayPauseBt(), SIGNAL(clicked()), this, SLOT(play()));
+    connect(window.getStopBt(), SIGNAL(clicked()), this, SLOT(stop()));
 }
 
 std::string MainApplication::getPathFromFileDialog()
@@ -41,7 +42,7 @@ std::string MainApplication::getPathFromFileDialog()
          tr("Open file"), "/home/jana", tr("Image Files (*.mp3 *.m4a *.ogg)"));
 
     //return fileName.toStdString();
-    return std::string("test_mp3.mp3");
+    return std::string("./test_mp3.mp3");
 }
 
 void MainApplication::loadFile()
@@ -52,4 +53,9 @@ void MainApplication::loadFile()
 void MainApplication::play()
 {
     core.play();
+}
+
+void MainApplication::stop()
+{
+    core.stop();
 }

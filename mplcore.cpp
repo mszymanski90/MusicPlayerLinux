@@ -20,32 +20,14 @@
 
 #include "mplcore.h"
 
-MPLCore::MPLCore()
-{
-    _currentHStream = 0;
-    _logger = NULL;
-}
-
-void MPLCore::init(LoggerDevice *logger)
-{
-    _logger = logger;
-
-    if (!BASS_Init(-1,44100,0,0,NULL))
-        _logger->log(std::string("Cannot initialize device"));
-}
-
-void MPLCore::loadFile(std::string filePath)
+void MPLCore::openStream()
 {
     HSTREAM str;
-    char file[MAX_PATH]="";
 
-    _logger->log(filePath);
-
-    filePath.copy(file, MAX_PATH);
-
-    if(str=BASS_StreamCreateFile(FALSE,file,0,0,0))
+    if(str=BASS_StreamCreateFile(FALSE,_file,0,0,0))
     {
         _currentHStream = str;
+        _streamLoaded = true;
         _logger->log(std::string("File loaded succesfully."));
     }
     else
@@ -54,8 +36,76 @@ void MPLCore::loadFile(std::string filePath)
     }
 }
 
+MPLCore::MPLCore()
+{
+    _currentHStream = 0;
+    _logger = NULL;
+    _fileNameLoaded = false;
+    _streamLoaded = false;
+}
+
+MPLCore::~MPLCore()
+{
+    BASS_Free();
+}
+
+void MPLCore::init(LoggerDevice *logger)
+{
+    _logger = logger;
+
+    if(!BASS_Init(-1,44100,0,0,NULL))
+        _logger->log(std::string("Cannot initialize device"));
+}
+
+void MPLCore::loadFile(std::string filePath)
+{
+    _logger->log(std::string("Loading: ") + filePath);
+    filePath.copy(_file, MAX_PATH);
+    _fileNameLoaded = true;
+}
+
 void MPLCore::play()
 {
-    BASS_ChannelPlay(_currentHStream, TRUE);
-    _logger->log(std::string("Play."));
+    if(_fileNameLoaded)
+    {
+        if(!_streamLoaded)
+        {
+            _logger->log(std::string("Opening stream."));
+            openStream();
+            BASS_ChannelPlay(_currentHStream, TRUE);
+        }
+        else
+        {
+            if(!BASS_ChannelPlay(_currentHStream, FALSE))
+            {
+                _logger->log(std::string("Error resuming playback."));
+            }
+        }
+
+        _logger->log(std::string("Play."));
+    }
+    else
+    {
+        _logger->log(std::string("Called play() with no file name loaded."));
+    }
 }
+
+void MPLCore::pause()
+{
+    if(_currentHStream != LB_ERR) BASS_ChannelStop(_currentHStream);
+    _logger->log(std::string("Pause."));
+}
+
+void MPLCore::stop()
+{
+    if(_streamLoaded)
+    {
+        _streamLoaded = false;
+        BASS_ChannelStop(_currentHStream);
+        BASS_StreamFree(_currentHStream);
+    }
+
+    _logger->log(std::string("Stop."));
+}
+
+

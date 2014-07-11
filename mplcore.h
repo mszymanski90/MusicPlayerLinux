@@ -35,15 +35,21 @@ class MPLCore
 {
 private:
     HSTREAM _currentHStream;
+    char _file[MAX_PATH];
     LoggerDevice* _logger;
+    bool _fileNameLoaded;
+    bool _streamLoaded;
+
+    void openStream();
 
 public:
     MPLCore();
+    ~MPLCore();
     void init(LoggerDevice* logger);
     void loadFile(std::string filePath);
     void play();
-    void stop();
     void pause();
+    void stop();
     void setVolume();
 };
 
