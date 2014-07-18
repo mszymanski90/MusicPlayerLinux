@@ -20,94 +20,40 @@
 
 #include "mplcore.h"
 
-void MPLCore::openStream()
-{
-    HSTREAM str;
-
-    if(str=BASS_StreamCreateFile(FALSE, _file, 0, 0, 0))
-    {
-        _currentHStream = str;
-        _streamLoaded = true;
-        _logger->log(std::string("File loaded succesfully."));
-    }
-    else
-    {
-        std::stringstream err_msg;
-        err_msg << "BASS error code: " << BASS_ErrorGetCode();
-        _logger->log(err_msg.str());
-    }
-}
-
 MPLCore::MPLCore()
 {
-    _currentHStream = 0;
     _logger = NULL;
-    _fileNameLoaded = false;
-    _streamLoaded = false;
+    playerState.reset(new MPL_StateIdle(playbackDevice));
 }
 
 MPLCore::~MPLCore()
 {
-    BASS_Free();
 }
 
 void MPLCore::init(LoggerDevice *logger)
 {
     _logger = logger;
-
-    if(!BASS_Init(-1,44100,0,0,NULL))
-        _logger->log(std::string("Cannot initialize device"));
+    playbackDevice.init();
 }
 
 void MPLCore::loadFile(const char *filePath, int size)
 {
-    //_logger->log(std::string("Loading: ") + filePath);
-    strcpy(_file, filePath);
-    _fileNameLoaded = true;
+    strcpy(_filePath, filePath);
 }
 
 void MPLCore::play()
 {
-    if(_fileNameLoaded)
-    {
-        if(!_streamLoaded)
-        {
-            _logger->log(std::string("Opening stream."));
-            openStream();
-            BASS_ChannelPlay(_currentHStream, TRUE);
-        }
-        else
-        {
-            if(!BASS_ChannelPlay(_currentHStream, FALSE))
-            {
-                _logger->log(std::string("Error resuming playback."));
-            }
-        }
-
-        _logger->log(std::string("Play."));
-    }
-    else
-    {
-        _logger->log(std::string("Called play() with no file name loaded."));
-    }
+    playerState.reset(playerState->play(_filePath));
 }
 
 void MPLCore::pause()
 {
-    if(_currentHStream != LB_ERR) BASS_ChannelStop(_currentHStream);
-    _logger->log(std::string("Pause."));
+    playerState.reset(playerState->pause());
 }
 
 void MPLCore::stop()
 {
-    if(_streamLoaded)
-    {
-        _streamLoaded = false;
-        BASS_ChannelStop(_currentHStream);
-        BASS_StreamFree(_currentHStream);
-    }
-
-    _logger->log(std::string("Stop."));
+    playerState.reset(playerState->stop());
 }
 
 

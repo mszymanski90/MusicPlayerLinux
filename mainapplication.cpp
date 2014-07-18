@@ -41,7 +41,7 @@ QByteArray MainApplication::getPathFromFileDialog()
     QString fileName = QFileDialog::getOpenFileName(&window,
          tr("Open file"), "/home/jana", tr("Image Files (*.mp3 *.m4a *.ogg)"));
 
-    return fileName.toLocal8Bit();
+    return fileName.toUtf8();
 }
 
 void MainApplication::loadFile()

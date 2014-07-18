@@ -23,26 +23,16 @@
 
 #include <string>
 #include <sstream>
-#include "bass.h"
+#include <memory>
+#include "mpl_abstractstate.h"
+#include "mpl_bassdevice.h"
+#include "mpl_stateidle.h"
+#include "mpl_statepaused.h"
+#include "mpl_stateplayback.h"
 #include "loggerdevice.h"
-
-
-#ifndef _WIN32
-    // fix this value later
-    #define MAX_PATH 100
-#endif
 
 class MPLCore
 {
-private:
-    HSTREAM _currentHStream;
-    char _file[MAX_PATH];
-    LoggerDevice* _logger;
-    bool _fileNameLoaded;
-    bool _streamLoaded;
-
-    void openStream();
-
 public:
     MPLCore();
     ~MPLCore();
@@ -52,6 +42,12 @@ public:
     void pause();
     void stop();
     void setVolume();
+
+private:
+    MPL_BASSDevice playbackDevice;
+    std::unique_ptr<MPL_AbstractState> playerState;
+    LoggerDevice* _logger;
+    char* _filePath;
 };
 
 #endif // MPLCORE_H

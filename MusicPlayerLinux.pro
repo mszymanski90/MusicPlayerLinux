@@ -24,6 +24,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = MusicPlayerLinux
 TEMPLATE = app
+CONFIG += c++11
 
 linux-g++ {
      LIBS += $$PWD/libbass.so
@@ -37,13 +38,23 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     mainapplication.cpp \
     mplcore.cpp \
-    loggerdevice.cpp
+    loggerdevice.cpp \
+    mpl_abstractstate.cpp \
+    mpl_stateplayback.cpp \
+    mpl_stateidle.cpp \
+    mpl_statepaused.cpp \
+    mpl_bassdevice.cpp
 
 HEADERS  += mainwindow.h \
     bass.h \
     mainapplication.h \
     mplcore.h \
-    loggerdevice.h
+    loggerdevice.h \
+    mpl_abstractstate.h \
+    mpl_stateplayback.h \
+    mpl_stateidle.h \
+    mpl_statepaused.h \
+    mpl_bassdevice.h
 
 FORMS    += mainwindow.ui
 
