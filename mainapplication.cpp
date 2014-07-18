@@ -36,18 +36,18 @@ void MainApplication::init()
     connect(window.getStopBt(), SIGNAL(clicked()), this, SLOT(stop()));
 }
 
-std::string MainApplication::getPathFromFileDialog()
+QByteArray MainApplication::getPathFromFileDialog()
 {
     QString fileName = QFileDialog::getOpenFileName(&window,
          tr("Open file"), "/home/jana", tr("Image Files (*.mp3 *.m4a *.ogg)"));
 
-    //return fileName.toStdString();
-    return std::string("./test_mp3.mp3");
+    return fileName.toLocal8Bit();
 }
 
 void MainApplication::loadFile()
 {
-    core.loadFile(getPathFromFileDialog());
+    QByteArray qtpath = getPathFromFileDialog();
+    core.loadFile(qtpath.constData(), qtpath.size());
 }
 
 void MainApplication::play()

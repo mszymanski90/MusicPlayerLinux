@@ -40,7 +40,7 @@ private:
     MPLCore core;
     LoggerDevice logger;
 
-    std::string getPathFromFileDialog();
+    QByteArray getPathFromFileDialog();
 
 signals:
 

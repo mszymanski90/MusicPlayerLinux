@@ -22,6 +22,7 @@
 #define MPLCORE_H
 
 #include <string>
+#include <sstream>
 #include "bass.h"
 #include "loggerdevice.h"
 
@@ -46,7 +47,7 @@ public:
     MPLCore();
     ~MPLCore();
     void init(LoggerDevice* logger);
-    void loadFile(std::string filePath);
+    void loadFile(const char* filePath, int size);
     void play();
     void pause();
     void stop();

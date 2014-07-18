@@ -24,7 +24,7 @@ void MPLCore::openStream()
 {
     HSTREAM str;
 
-    if(str=BASS_StreamCreateFile(FALSE,_file,0,0,0))
+    if(str=BASS_StreamCreateFile(FALSE, _file, 0, 0, 0))
     {
         _currentHStream = str;
         _streamLoaded = true;
@@ -32,7 +32,9 @@ void MPLCore::openStream()
     }
     else
     {
-        _logger->log(std::string("Error loading file."));
+        std::stringstream err_msg;
+        err_msg << "BASS error code: " << BASS_ErrorGetCode();
+        _logger->log(err_msg.str());
     }
 }
 
@@ -57,10 +59,10 @@ void MPLCore::init(LoggerDevice *logger)
         _logger->log(std::string("Cannot initialize device"));
 }
 
-void MPLCore::loadFile(std::string filePath)
+void MPLCore::loadFile(const char *filePath, int size)
 {
-    _logger->log(std::string("Loading: ") + filePath);
-    filePath.copy(_file, MAX_PATH);
+    //_logger->log(std::string("Loading: ") + filePath);
+    strcpy(_file, filePath);
     _fileNameLoaded = true;
 }
 
