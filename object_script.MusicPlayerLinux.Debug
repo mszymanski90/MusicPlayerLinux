@@ -1,0 +1,15 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\mainapplication.o
+./debug\mplcore.o
+./debug\loggerdevice.o
+./debug\mpl_abstractstate.o
+./debug\mpl_stateplayback.o
+./debug\mpl_stateidle.o
+./debug\mpl_statepaused.o
+./debug\mpl_bassdevice.o
+./debug\moc_mainwindow.o
+./debug\moc_mainapplication.o
+./debug\moc_loggerdevice.o
+);

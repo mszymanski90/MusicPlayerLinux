@@ -3,6 +3,8 @@
 
 #include "mpl_abstractstate.h"
 #include "mpl_bassdevice.h"
+// M:
+// Po co poni¿szy include?
 #include "mpl_stateplayback.h"
 
 class MPL_StateIdle : public MPL_AbstractState

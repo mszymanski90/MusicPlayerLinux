@@ -25,6 +25,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = MusicPlayerLinux
 TEMPLATE = app
 CONFIG += c++11
+QMAKE_CXXFLAGS += -std=gnu++0x
 
 linux-g++ {
      LIBS += $$PWD/libbass.so
