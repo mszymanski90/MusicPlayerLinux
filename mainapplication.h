@@ -21,6 +21,8 @@
 #ifndef MAINAPPLICATION_H
 #define MAINAPPLICATION_H
 
+// M:
+// Po co include <string> i <QFileDialog>?
 #include <string>
 #include <QObject>
 #include <QFileDialog>
@@ -40,10 +42,16 @@ private:
     MPLCore core;
     LoggerDevice logger;
 
+    // M:
+    // Czemu nie std::string lub QString?
     QByteArray getPathFromFileDialog();
 
 signals:
 
+    // M:
+    // te sloty powinny byæ przeniesione do klasy MPLCore bo w tej chwili mamy ³añcuch:
+    // MainApplication::play() -> MPLCore::play() -> MPLAbstractState::play()
+    // -> MPLBassDevice::play()
 public slots:
     void loadFile();
     void play();

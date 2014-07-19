@@ -22,6 +22,8 @@
 
 MPLCore::MPLCore()
 {
+    // M:
+    // U¿ywaj listy inicjalizacyjnej
     _logger = NULL;
     playerState.reset(new MPL_StateIdle(playbackDevice));
 }

@@ -7,6 +7,8 @@ MPL_StatePlayback::MPL_StatePlayback(MPL_BASSDevice &device) :
 
 MPL_AbstractState *MPL_StatePlayback::play(const char *filePath)
 {
+    // M:
+    // móg³byœ tutaj zwróciæ this
     return new MPL_StatePlayback(*_device);
 }
 
@@ -18,6 +20,8 @@ MPL_AbstractState *MPL_StatePlayback::pause()
     }
     else
     {
+        // M:
+        // móg³byœ tutaj zwróciæ this
         return new MPL_StatePlayback(*_device);
     }
 }
@@ -30,6 +34,8 @@ MPL_AbstractState *MPL_StatePlayback::stop()
     }
     else
     {
+        // M:
+        // móg³byœ tutaj zwróciæ this
         return new MPL_StatePlayback(*_device);
     }
 }
