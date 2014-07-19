@@ -38,9 +38,14 @@ QPushButton* MainWindow::getLoadFileBt()
     return ui->loadFileBt;
 }
 
-QPushButton* MainWindow::getPlayPauseBt()
+QPushButton *MainWindow::getPlayBt()
 {
-    return ui->playPauseBt;
+    return ui->playBt;
+}
+
+QPushButton* MainWindow::getPauseBt()
+{
+    return ui->pauseBt;
 }
 
 QPushButton* MainWindow::getStopBt()

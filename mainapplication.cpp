@@ -32,7 +32,8 @@ void MainApplication::init()
     core.init(&logger);
 
     connect(window.getLoadFileBt(), SIGNAL(clicked()), this, SLOT(loadFile()));
-    connect(window.getPlayPauseBt(), SIGNAL(clicked()), this, SLOT(play()));
+    connect(window.getPlayBt(), SIGNAL(clicked()), this, SLOT(play()));
+    connect(window.getPauseBt(), SIGNAL(clicked()), this, SLOT(pause()));
     connect(window.getStopBt(), SIGNAL(clicked()), this, SLOT(stop()));
 }
 
@@ -53,6 +54,11 @@ void MainApplication::loadFile()
 void MainApplication::play()
 {
     core.play();
+}
+
+void MainApplication::pause()
+{
+    core.pause();
 }
 
 void MainApplication::stop()

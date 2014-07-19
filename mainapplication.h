@@ -47,6 +47,7 @@ signals:
 public slots:
     void loadFile();
     void play();
+    void pause();
     void stop();
 };
 

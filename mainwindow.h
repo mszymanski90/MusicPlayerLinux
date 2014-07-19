@@ -37,7 +37,8 @@ public:
     ~MainWindow();
 
     QPushButton* getLoadFileBt();
-    QPushButton* getPlayPauseBt();
+    QPushButton* getPlayBt();
+    QPushButton* getPauseBt();
     QPushButton* getStopBt();
 
 private:

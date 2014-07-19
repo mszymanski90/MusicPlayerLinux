@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>602</width>
+    <height>314</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="loadFileBt">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>160</y>
+      <x>10</x>
+      <y>10</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -27,30 +27,43 @@
      <string>Load file</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="playPauseBt">
+   <widget class="QPushButton" name="playBt">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>160</y>
-      <width>75</width>
+      <x>100</x>
+      <y>10</y>
+      <width>51</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Play / pause</string>
+     <string>Play</string>
     </property>
    </widget>
    <widget class="QPushButton" name="stopBt">
     <property name="geometry">
      <rect>
       <x>220</x>
-      <y>160</y>
-      <width>75</width>
+      <y>10</y>
+      <width>51</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
      <string>Stop</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pauseBt">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>10</y>
+      <width>51</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Pause</string>
     </property>
    </widget>
   </widget>
@@ -59,7 +72,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>602</width>
      <height>21</height>
     </rect>
    </property>
