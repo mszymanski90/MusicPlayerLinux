@@ -1,2 +1,9 @@
 *.pro.user
-
+*.manifest
+*.pdb
+*.obj
+*.o
+*.mp3
+Makefile
+*.Debug
+*.Release

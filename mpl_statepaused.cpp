@@ -8,8 +8,8 @@ MPL_StatePaused::MPL_StatePaused(MPL_BASSDevice &device) :
 MPL_AbstractState *MPL_StatePaused::play(const char *filePath)
 {
     // M:
-    // dopuszczasz to ¿e nie uda siê wykonaæ tej operacji?
-    // Poza tym móg³byœ napisaæ:
+    // dopuszczasz to ze nie uda sie wykonac tej operacji?
+    // Poza tym moglbys napisac:
     /*
     if(_device->resume())
         return new MPL_StatePlayback(*_device);
@@ -22,7 +22,7 @@ MPL_AbstractState *MPL_StatePaused::play(const char *filePath)
     else
     {
         // M:
-        // móg³byœ tutaj zwróciæ this
+        // moglbys tutaj zwrocic this
         return new MPL_StatePaused(*_device);
     }
 }
@@ -30,22 +30,21 @@ MPL_AbstractState *MPL_StatePaused::play(const char *filePath)
 MPL_AbstractState *MPL_StatePaused::pause()
 {
     // M:
-    // móg³byœ tutaj zwróciæ this
+    // moglbys tutaj zwrocic this
     return new MPL_StatePaused(*_device);
 }
 
 MPL_AbstractState *MPL_StatePaused::stop()
 {
     // M:
-    // dopuszczasz to ¿e nie uda siê wykonaæ tej operacji?
+    // dopuszczasz to ze nie uda sie wykonac tej operacji?
     if(_device->stop())
     {
         return new MPL_StateIdle(*_device);
     }
     else
     {
-        // M:
-        // móg³byœ tutaj zwróciæ this
+		// M:
         return new MPL_StatePaused(*_device);
     }
 }

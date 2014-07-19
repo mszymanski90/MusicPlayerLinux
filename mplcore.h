@@ -18,11 +18,9 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 // M:
-// Móg³byœ zamiast dawaæ przedrostek MPL do wszystkiego przenieœæ pliki od mpl
-// do folderu mpl/ albo core/. Poza tym zamiast nazywaæ klasy z przedrostkiem MPL
-// (który jest na dobr¹ sprawê nazw¹ aplikiacji i nie informuje o niczym, móg³byœ
-// u¿ywaæ namespace'ów. Proponujê namespace core/ albo player/ bo nazwa mpl/ o
-// o niczym nie informuje i mo¿e siê komuœ pomyliœ z meta-programming-language
+// zrobic folder core
+// uzywac namespace'ow
+// nie uzywac przedrostka mpl
 #ifndef MPLCORE_H
 #define MPLCORE_H
 
@@ -37,11 +35,11 @@
 #include "loggerdevice.h"
 
 // M:
-// Z punktu widzenia u¿ytkownika, klasa ta jest bardzo podobna do klasy MPL_BASSDevice
-// Jak dla mnie to ta klasa powinna trzymaæ state, oraz tworzyæ MPL_BASSDevice i
-// przekazywaæ go do state'ów. Ona by³aby ju¿ pod³¹czona przez sloty do
-// odpowiednich przycisków i kontrolek steruj¹cych odtwarzaniem.
-// Mog³aby siê nazywaæ PlayerControl czy jakoœ tak.
+// Z punktu widzenia uzytkownika, klasa ta jest bardzo podobna do klasy MPL_BASSDevice
+// Jak dla mnie to ta klasa powinna trzymac state, oraz tworzyc MPL_BASSDevice i
+// przekazywac go do state'ow. Ona bylaby juz podlaczona przez sloty do
+// odpowiednich przyciskow i kontrolek sterujacych odtwarzaniem.
+// Moglaby sie nazywac PlayerControl czy jakos tak.
 class MPLCore
 {
 public:
@@ -58,8 +56,8 @@ private:
     MPL_BASSDevice playbackDevice;
     std::unique_ptr<MPL_AbstractState> playerState;
     // M:
-    // czemu raw pointer? A poza tym, chyba tego na razie nie u¿ywasz wiêc, lepiej
-    // nie pisz kodu "na przysz³oœæ" :)
+    // czemu raw pointer? A poza tym, chyba tego na razie nie uzywasz wiec, lepiej
+    // nie pisz kodu "na przyszlosc" :)
     LoggerDevice* _logger;
     // M:
     // czemu nie std::string albo QString?

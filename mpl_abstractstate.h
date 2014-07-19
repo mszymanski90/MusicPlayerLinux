@@ -2,12 +2,12 @@
 #define MPL_ABSTRACTSTATE_H
 
 // M:
-// W sumie ten wzorzec nawet fajnie pasuje, ale proponowa³bym tutaj jedn¹ modyfikacjê.
-// Modyfikacja ta polega na dodaniu pola IPlayer dla ka¿dego state'u tak aby
-// delegowa³ on odtwarzanie do tej klasy, zajmuj¹c siê sam¹ logik¹ maszyny stanów.
-// W pliku MPLCore.hpp zaproponowa³em stworzenie interfejsu IPlayer, wprowadzenie
-// klasy konkretnej BASSPlayer (w³aœciwie adaptera) oraz wprowadzenie namespace'u
-// player. Tutaj napiszê jak widzê interfejs takiego state'u oraz przyk³adowy state:
+// W sumie ten wzorzec nawet fajnie pasuje, ale proponowalbym tutaj jedna modyfikacje.
+// Modyfikacja ta polega na dodaniu pola IPlayer dla kazdego stateu tak aby
+// delegowal on odtwarzanie do tej klasy, zajmujac sie sama logika maszyny stanow.
+// W pliku MPLCore.hpp zaproponowalem stworzenie interfejsu IPlayer, wprowadzenie
+// klasy konkretnej BASSPlayer (wlasciwie adaptera) oraz wprowadzenie namespaceu
+// player. Tutaj napisze jak widze interfejs takiego stateu oraz przykladowy state:
 /*
 namespace player {
 

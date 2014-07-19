@@ -21,11 +21,7 @@
 #ifndef MAINAPPLICATION_H
 #define MAINAPPLICATION_H
 
-// M:
-// Po co include <string> i <QFileDialog>?
-#include <string>
 #include <QObject>
-#include <QFileDialog>
 #include "mainwindow.h"
 #include "mplcore.h"
 #include "loggerdevice.h"
@@ -48,10 +44,6 @@ private:
 
 signals:
 
-    // M:
-    // te sloty powinny byæ przeniesione do klasy MPLCore bo w tej chwili mamy ³añcuch:
-    // MainApplication::play() -> MPLCore::play() -> MPLAbstractState::play()
-    // -> MPLBassDevice::play()
 public slots:
     void loadFile();
     void play();

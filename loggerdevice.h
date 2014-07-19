@@ -21,9 +21,6 @@
 #ifndef LOGGERDEVICE_H
 #define LOGGERDEVICE_H
 
-// M:
-// Po co include <iostream>?
-#include <iostream>
 #include <string>
 #include <QObject>
 

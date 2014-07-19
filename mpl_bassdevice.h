@@ -9,9 +9,9 @@
 #endif
 
 // M:
-// zmieni³bym nazwê tego pliku oraz klasy na po prostu "BASSPlayer" i wyci¹gna³ z tej
-// klasy interfejs IPlayer. Klasa konkretna Player hermetyzowa³aby u¿ycie biblioteki
-// BASS tak, ¿eby u¿ytkownik nie wiedzia³ o jej logice.
+// zmienilbym nazwe tego pliku oraz klasy na po prostu "BASSPlayer" i wyciagnal z tej
+// klasy interfejs IPlayer. Klasa konkretna Player hermetyzowalaby uzycie biblioteki
+// BASS tak, zeby uzytkownik nie wiedzial o jej logice.
 class MPL_BASSDevice
 {
 public:
@@ -29,8 +29,8 @@ public:
 private:
     HSTREAM _currentHStream;
     // M:
-    // zmienna _file wydaje siê niepotrzebna. Móg³byœ poprostu przekazywaæ stringa
-    // do funkcji play a potem do openstream i trzymaæ sam wynik, czyli _currentHStream
+    // zmienna _file wydaje sie niepotrzebna. Moglbys poprostu przekazywac stringa
+    // do funkcji play a potem do openstream i trzymac sam wynik, czyli _currentHStream
     // _file jest potrzebny tylko w momencie tworzenie _currentHStream
     char _file[MAX_PATH];
 
