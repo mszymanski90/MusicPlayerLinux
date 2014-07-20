@@ -1,3 +1,7 @@
+# Just in case..
+ui_mainwindow.h
+
+# Various generated files
 *.pro.user
 *.manifest
 *.pdb

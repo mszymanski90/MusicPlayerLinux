@@ -29,7 +29,7 @@ bool MPL_BASSDevice::resume()
 
 bool MPL_BASSDevice::pause()
 {
-	return BASS_ChannelStop(_currentHStream)
+    return BASS_ChannelStop(_currentHStream);
 }
 
 bool MPL_BASSDevice::stop()

@@ -11,14 +11,14 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Music Player Linux</string>
+   <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="loadFileBt">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
+      <x>30</x>
+      <y>30</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -30,9 +30,9 @@
    <widget class="QPushButton" name="playBt">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>10</y>
-      <width>51</width>
+      <x>110</x>
+      <y>30</y>
+      <width>75</width>
       <height>23</height>
      </rect>
     </property>
@@ -40,30 +40,30 @@
      <string>Play</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="stopBt">
-    <property name="geometry">
-     <rect>
-      <x>220</x>
-      <y>10</y>
-      <width>51</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Stop</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pauseBt">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>10</y>
-      <width>51</width>
+      <x>190</x>
+      <y>30</y>
+      <width>75</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
      <string>Pause</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="stopBt">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>30</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Stop</string>
     </property>
    </widget>
   </widget>

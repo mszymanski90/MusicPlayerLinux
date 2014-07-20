@@ -19,13 +19,11 @@
 #
 
 QT       += core gui
-
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = MusicPlayerLinux
 TEMPLATE = app
 CONFIG += c++11
-QMAKE_CXXFLAGS += -std=gnu++0x
 
 linux-g++ {
      LIBS += $$PWD/libbass.so
@@ -55,9 +53,11 @@ HEADERS  += mainwindow.h \
     mpl_stateplayback.h \
     mpl_stateidle.h \
     mpl_statepaused.h \
-    mpl_bassdevice.h
+    mpl_bassdevice.h \
 
 FORMS    += mainwindow.ui
 
 OTHER_FILES += \
     COPYING
+
+
