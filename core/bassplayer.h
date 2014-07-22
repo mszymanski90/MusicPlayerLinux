@@ -1,6 +1,7 @@
-#ifndef MPL_BASSDEVICE_H
-#define MPL_BASSDEVICE_H
+#ifndef BASSPLAYER_H
+#define BASSPLAYER_H
 
+#include "iplayer.h"
 #include "bass.h"
 
 #ifndef _WIN32
@@ -8,15 +9,11 @@
     #define MAX_PATH 260
 #endif
 
-// M:
-// zmienilbym nazwe tego pliku oraz klasy na po prostu "BASSPlayer" i wyciagnal z tej
-// klasy interfejs IPlayer. Klasa konkretna Player hermetyzowalaby uzycie biblioteki
-// BASS tak, zeby uzytkownik nie wiedzial o jej logice.
-class MPL_BASSDevice
+class BASSPlayer : public IPlayer
 {
 public:
-    MPL_BASSDevice();
-    ~MPL_BASSDevice();
+    BASSPlayer();
+    ~BASSPlayer();
     void init();
     // M:
     // Czemu nie std::string albo QString?
@@ -24,7 +21,7 @@ public:
     bool resume();
     bool pause();
     bool stop();
-    bool setVolume(int setValue);
+    bool setVolume(float volume);
 
 private:
     HSTREAM _currentHStream;
@@ -37,4 +34,4 @@ private:
     void openStream();
 };
 
-#endif // MPL_BASSDEVICE_H
+#endif // BASSPLAYER_H

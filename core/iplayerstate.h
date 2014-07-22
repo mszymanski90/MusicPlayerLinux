@@ -1,5 +1,5 @@
-#ifndef MPL_ABSTRACTSTATE_H
-#define MPL_ABSTRACTSTATE_H
+#ifndef IPLAYERSTATE_H
+#define IPLAYERSTATE_H
 
 // M:
 // W sumie ten wzorzec nawet fajnie pasuje, ale proponowalbym tutaj jedna modyfikacje.
@@ -39,12 +39,14 @@ private:
 */
 
 
-class MPL_AbstractState
+class IPlayerState
 {
 public:
-    virtual MPL_AbstractState* play(const char *filePath) = 0;
-    virtual MPL_AbstractState* pause() = 0;
-    virtual MPL_AbstractState* stop() = 0;
+    virtual ~IPlayerState();
+    virtual IPlayerState* play(const char *filePath) = 0;
+    virtual IPlayerState* pause() = 0;
+    virtual IPlayerState* stop() = 0;
+
 };
 
-#endif // MPL_ABSTRACTSTATE_H
+#endif // IPLAYERSTATE_H

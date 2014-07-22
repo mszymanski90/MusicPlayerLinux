@@ -23,7 +23,7 @@
 
 #include <QObject>
 #include "mainwindow.h"
-#include "mplcore.h"
+#include "core/core.h"
 #include "loggerdevice.h"
 
 class MainApplication : public QObject
@@ -35,7 +35,7 @@ public:
 
 private:
     MainWindow window;
-    MPLCore core;
+    Core core;
     LoggerDevice logger;
 
     // M:
@@ -48,6 +48,7 @@ public slots:
     void loadFile();
     void play();
     void pause();
+    void setVolume(int volume);
     void stop();
 };
 

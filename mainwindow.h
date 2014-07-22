@@ -23,6 +23,7 @@
 
 #include <QMainWindow>
 #include <QPushButton>
+#include <QSlider>
 
 namespace Ui {
 class MainWindow;
@@ -40,6 +41,7 @@ public:
     QPushButton* getPlayBt();
     QPushButton* getPauseBt();
     QPushButton* getStopBt();
+    QSlider* getVolumeSld();
 
 private:
     Ui::MainWindow *ui;

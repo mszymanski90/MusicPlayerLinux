@@ -26,34 +26,36 @@ TEMPLATE = app
 CONFIG += c++11
 
 linux-g++ {
-     LIBS += $$PWD/libbass.so
+     LIBS += $$PWD/lib/libbass.so
  }
 
 win32-g++ {
-     LIBS += $$PWD/bass.lib
+     LIBS += $$PWD/lib/bass.lib
  }
 
 SOURCES += main.cpp\
         mainwindow.cpp \
     mainapplication.cpp \
-    mplcore.cpp \
+    core\core.cpp \
     loggerdevice.cpp \
-    mpl_abstractstate.cpp \
-    mpl_stateplayback.cpp \
-    mpl_stateidle.cpp \
-    mpl_statepaused.cpp \
-    mpl_bassdevice.cpp
+    core\iplayerstate.cpp \
+    core\stateplayback.cpp \
+    core\stateidle.cpp \
+    core\statepaused.cpp \
+    core\bassplayer.cpp \
+    core/iplayer.cpp
 
 HEADERS  += mainwindow.h \
     bass.h \
     mainapplication.h \
-    mplcore.h \
+    core\core.h \
     loggerdevice.h \
-    mpl_abstractstate.h \
-    mpl_stateplayback.h \
-    mpl_stateidle.h \
-    mpl_statepaused.h \
-    mpl_bassdevice.h \
+    core\iplayerstate.h \
+    core\stateplayback.h \
+    core\stateidle.h \
+    core\statepaused.h \
+    core\bassplayer.h \
+    core/iplayer.h
 
 FORMS    += mainwindow.ui
 

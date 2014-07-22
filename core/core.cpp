@@ -18,44 +18,47 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include "mplcore.h"
+#include "core.h"
 
-MPLCore::MPLCore()
+Core::Core() :
+    logger_(NULL)
 {
-    // M:
-    // Uzywaj listy inicjalizacyjnej
-    _logger = NULL;
-    playerState.reset(new MPL_StateIdle(playbackDevice));
+    playerState_.reset(new StateIdle(player_));
 }
 
-MPLCore::~MPLCore()
+Core::~Core()
 {
 }
 
-void MPLCore::init(LoggerDevice *logger)
+void Core::init(LoggerDevice *logger)
 {
-    _logger = logger;
-    playbackDevice.init();
+    //logger_ = logger;
+    player_.init();
 }
 
-void MPLCore::loadFile(const char *filePath, int size)
+void Core::loadFile(const char *filePath, int size)
 {
-    strcpy(_filePath, filePath);
+    strcpy(filePath_, filePath);
 }
 
-void MPLCore::play()
+void Core::play()
 {
-    playerState.reset(playerState->play(_filePath));
+    playerState_.reset(playerState_->play(filePath_));
 }
 
-void MPLCore::pause()
+void Core::pause()
 {
-    playerState.reset(playerState->pause());
+    playerState_.reset(playerState_->pause());
 }
 
-void MPLCore::stop()
+void Core::stop()
 {
-    playerState.reset(playerState->stop());
+    playerState_.reset(playerState_->stop());
+}
+
+void Core::setVolume(float volume)
+{
+    player_.setVolume(volume);
 }
 
 
