@@ -23,15 +23,15 @@
 #include "mainapplication.h"
 
 MainApplication::MainApplication(QObject *parent) :
-    QObject(parent)
+    QObject(parent),
+    core(logger)
 {
-
 }
 
 void MainApplication::init()
 {
     window.show();
-    core.init(&logger);
+    core.init();
 
     connect(window.getLoadFileBt(), SIGNAL(clicked()), this, SLOT(loadFile()));
     connect(window.getPlayBt(), SIGNAL(clicked()), this, SLOT(play()));
@@ -45,12 +45,14 @@ QByteArray MainApplication::getPathFromFileDialog()
     QString fileName = QFileDialog::getOpenFileName(&window,
          tr("Open file"), "/home/jana", tr("Image Files (*.mp3 *.m4a *.ogg)"));
 
-    return fileName.toUtf8();
+    return fileName.toLocal8Bit();
 }
 
 void MainApplication::loadFile()
 {
+    logger.log(std::string("MA load file"));
     QByteArray qtpath = getPathFromFileDialog();
+    logger.log(std::string("MA converted path to QByteArray"));
     core.loadFile(qtpath.constData(), qtpath.size());
 }
 

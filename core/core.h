@@ -34,9 +34,9 @@
 class Core
 {
 public:
-    Core();
+    Core(LoggerDevice &logger);
     ~Core();
-    void init(LoggerDevice* logger);
+    void init();
     void loadFile(const char* filePath, int size);
     void play();
     void pause();
@@ -46,10 +46,10 @@ public:
 private:
     BASSPlayer player_;
     std::unique_ptr<IPlayerState> playerState_;
-    std::shared_ptr<LoggerDevice> logger_;
+    LoggerDevice &logger_;
     // M:
     // czemu nie std::string albo QString?
-    char* filePath_;
+    char filePath_[MAX_PATH];
 };
 
 #endif // CORE_H

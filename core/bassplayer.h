@@ -2,6 +2,7 @@
 #define BASSPLAYER_H
 
 #include "iplayer.h"
+#include "loggerdevice.h"
 #include "bass.h"
 
 #ifndef _WIN32
@@ -12,9 +13,9 @@
 class BASSPlayer : public IPlayer
 {
 public:
-    BASSPlayer();
+    BASSPlayer(LoggerDevice &logger);
     ~BASSPlayer();
-    void init();
+    bool init();
     // M:
     // Czemu nie std::string albo QString?
     bool play(const char *filePath);
@@ -24,12 +25,13 @@ public:
     bool setVolume(float volume);
 
 private:
-    HSTREAM _currentHStream;
+    HSTREAM currentHStream_;
     // M:
     // zmienna _file wydaje sie niepotrzebna. Moglbys poprostu przekazywac stringa
     // do funkcji play a potem do openstream i trzymac sam wynik, czyli _currentHStream
     // _file jest potrzebny tylko w momencie tworzenie _currentHStream
-    char _file[MAX_PATH];
+    char file_[MAX_PATH];
+    LoggerDevice &logger_;
 
     void openStream();
 };

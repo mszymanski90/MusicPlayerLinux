@@ -36,25 +36,25 @@ win32-g++ {
 SOURCES += main.cpp\
         mainwindow.cpp \
     mainapplication.cpp \
-    core\core.cpp \
+    core/core.cpp \
     loggerdevice.cpp \
-    core\iplayerstate.cpp \
-    core\stateplayback.cpp \
-    core\stateidle.cpp \
-    core\statepaused.cpp \
-    core\bassplayer.cpp \
+    core/iplayerstate.cpp \
+    core/stateplayback.cpp \
+    core/stateidle.cpp \
+    core/statepaused.cpp \
+    core/bassplayer.cpp \
     core/iplayer.cpp
 
 HEADERS  += mainwindow.h \
     bass.h \
     mainapplication.h \
-    core\core.h \
+    core/core.h \
     loggerdevice.h \
-    core\iplayerstate.h \
-    core\stateplayback.h \
-    core\stateidle.h \
-    core\statepaused.h \
-    core\bassplayer.h \
+    core/iplayerstate.h \
+    core/stateplayback.h \
+    core/stateidle.h \
+    core/statepaused.h \
+    core/bassplayer.h \
     core/iplayer.h
 
 FORMS    += mainwindow.ui

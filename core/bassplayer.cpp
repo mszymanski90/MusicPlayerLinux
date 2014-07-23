@@ -1,40 +1,47 @@
+#include <string.h>
 #include "bassplayer.h"
 
-BASSPlayer::BASSPlayer()
+BASSPlayer::BASSPlayer(LoggerDevice &logger) :
+    currentHStream_(0),
+    logger_(logger)
 {
-    _currentHStream = 0;
 }
 
 BASSPlayer::~BASSPlayer()
 {
-    BASS_Free();
+    if(!BASS_Free()) logger_.log(std::string("Core free error"));
 }
 
-void BASSPlayer::init()
+bool BASSPlayer::init()
 {
-    BASS_Init(-1,44100,0,0,NULL);
+    logger_.log(std::string("Core init"));
+    return BASS_Init(-1, 44100, 0, 0, nullptr);
 }
 
 bool BASSPlayer::play(const char *filePath)
 {
-    strcpy(_file, filePath);
+    logger_.log(std::string("Core play"));
+    strcpy(file_, filePath);
     openStream();
-    return BASS_ChannelPlay(_currentHStream, TRUE);
+    return BASS_ChannelPlay(currentHStream_, TRUE);
 }
 
 bool BASSPlayer::resume()
 {
-    return BASS_ChannelPlay(_currentHStream, FALSE);
+    logger_.log(std::string("Core resume"));
+    return BASS_ChannelPlay(currentHStream_, FALSE);
 }
 
 bool BASSPlayer::pause()
 {
-    return BASS_ChannelStop(_currentHStream);
+    logger_.log(std::string("Core pause"));
+    return BASS_ChannelStop(currentHStream_);
 }
 
 bool BASSPlayer::stop()
 {
-    if(BASS_ChannelStop(_currentHStream) && BASS_StreamFree(_currentHStream))
+    logger_.log(std::string("Core stop"));
+    if(BASS_ChannelStop(currentHStream_) && BASS_StreamFree(currentHStream_))
     {
         return true;
     }
@@ -48,7 +55,8 @@ bool BASSPlayer::setVolume(float volume)
 
 void BASSPlayer::openStream()
 {
-    _currentHStream = BASS_StreamCreateFile(FALSE, _file, 0, 0, 0);
+    logger_.log(std::string("Core open stream"));
+    currentHStream_ = BASS_StreamCreateFile(FALSE, file_, 0, 0, 0);
 }
 
 

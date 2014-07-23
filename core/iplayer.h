@@ -5,7 +5,7 @@ class IPlayer
 {
 public:
     virtual ~IPlayer();
-    virtual void init() = 0;
+    virtual bool init() = 0;
     // M:
     // Czemu nie std::string albo QString?
     virtual bool play(const char *filePath) = 0;

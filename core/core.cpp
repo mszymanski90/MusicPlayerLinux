@@ -20,8 +20,9 @@
 
 #include "core.h"
 
-Core::Core() :
-    logger_(NULL)
+Core::Core(LoggerDevice &logger) :
+    logger_(logger),
+    player_(logger)
 {
     playerState_.reset(new StateIdle(player_));
 }
@@ -30,15 +31,16 @@ Core::~Core()
 {
 }
 
-void Core::init(LoggerDevice *logger)
+void Core::init()
 {
-    //logger_ = logger;
     player_.init();
 }
 
 void Core::loadFile(const char *filePath, int size)
 {
+    logger_.log(std::string("Core strcpy: ") + std::string(filePath));
     strcpy(filePath_, filePath);
+    logger_.log(std::string("Core strcpy: ") + std::string(filePath_));
 }
 
 void Core::play()
