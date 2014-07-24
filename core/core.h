@@ -42,6 +42,7 @@ public:
     void pause();
     void stop();
     void setVolume(float volume);
+    void seek(int timeInSeconds);
 
 private:
     BASSPlayer player_;

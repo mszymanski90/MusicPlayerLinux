@@ -38,6 +38,7 @@ void MainApplication::init()
     connect(window.getPauseBt(), SIGNAL(clicked()), this, SLOT(pause()));
     connect(window.getStopBt(), SIGNAL(clicked()), this, SLOT(stop()));
     connect(window.getVolumeSld(), SIGNAL(valueChanged(int)), this, SLOT(setVolume(int)));
+    connect(window.getSeekSld(), SIGNAL(valueChanged(int)), this, SLOT(seek(int)));
 }
 
 QByteArray MainApplication::getPathFromFileDialog()
@@ -74,4 +75,9 @@ void MainApplication::setVolume(int volume)
 void MainApplication::stop()
 {
     core.stop();
+}
+
+void MainApplication::seek(int timeInSeconds)
+{
+    core.seek(timeInSeconds);
 }

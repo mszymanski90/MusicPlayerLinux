@@ -63,4 +63,9 @@ void Core::setVolume(float volume)
     player_.setVolume(volume);
 }
 
+void Core::seek(int timeInSeconds)
+{
+    playerState_.reset(playerState_->seek(timeInSeconds*44100));
+}
+
 

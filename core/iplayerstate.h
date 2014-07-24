@@ -46,7 +46,7 @@ public:
     virtual IPlayerState* play(const char *filePath) = 0;
     virtual IPlayerState* pause() = 0;
     virtual IPlayerState* stop() = 0;
-
+    virtual IPlayerState* seek(int timeInSeconds) = 0;
 };
 
 #endif // IPLAYERSTATE_H

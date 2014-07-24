@@ -53,6 +53,11 @@ bool BASSPlayer::setVolume(float volume)
     return BASS_SetVolume(volume);
 }
 
+bool BASSPlayer::seek(int timeInSeconds)
+{
+    return BASS_ChannelSetPosition(currentHStream_, timeInSeconds, BASS_POS_BYTE);
+}
+
 void BASSPlayer::openStream()
 {
     logger_.log(std::string("Core open stream"));

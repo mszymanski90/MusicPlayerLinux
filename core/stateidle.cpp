@@ -28,3 +28,8 @@ IPlayerState *StateIdle::stop()
 {
     return new StateIdle(player_);
 }
+
+IPlayerState *StateIdle::seek(int timeInSeconds)
+{
+    return new StateIdle(player_);
+}

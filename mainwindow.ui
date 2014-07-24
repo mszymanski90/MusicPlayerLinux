@@ -85,7 +85,7 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="volumeLb">
     <property name="geometry">
      <rect>
       <x>340</x>
@@ -96,6 +96,32 @@
     </property>
     <property name="text">
      <string>Volume</string>
+    </property>
+   </widget>
+   <widget class="QSlider" name="seekSld">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>50</y>
+      <width>411</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="seekLb">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>50</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Seek</string>
     </property>
    </widget>
   </widget>

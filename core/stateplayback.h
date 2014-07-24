@@ -11,6 +11,7 @@ public:
     IPlayerState* play(const char *filePath);
     IPlayerState* pause();
     IPlayerState* stop();
+    IPlayerState* seek(int timeInSeconds);
 
 private:
     IPlayer& player_;

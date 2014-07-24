@@ -13,6 +13,7 @@ public:
     virtual bool pause() = 0;
     virtual bool stop() = 0;
     virtual bool setVolume(float volume) = 0;
+    virtual bool seek(int timeInSeconds) = 0;
 };
 
 #endif // IPLAYER_H

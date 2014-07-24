@@ -42,6 +42,7 @@ public:
     QPushButton* getPauseBt();
     QPushButton* getStopBt();
     QSlider* getVolumeSld();
+    QSlider* getSeekSld();
 
 private:
     Ui::MainWindow *ui;

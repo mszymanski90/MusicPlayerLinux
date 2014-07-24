@@ -41,3 +41,9 @@ IPlayerState *StatePlayback::stop()
         return new StatePlayback(player_);
     }
 }
+
+IPlayerState *StatePlayback::seek(int timeInSeconds)
+{
+    player_.seek(timeInSeconds);
+    return new StatePlayback(player_);
+}

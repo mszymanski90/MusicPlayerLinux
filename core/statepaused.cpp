@@ -50,3 +50,9 @@ IPlayerState *StatePaused::stop()
         return new StatePaused(player_);
     }
 }
+
+IPlayerState *StatePaused::seek(int timeInSeconds)
+{
+    player_.seek(timeInSeconds);
+    return new StatePaused(player_);
+}

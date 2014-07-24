@@ -57,3 +57,8 @@ QSlider *MainWindow::getVolumeSld()
 {
     return ui->volumeSld;
 }
+
+QSlider *MainWindow::getSeekSld()
+{
+    return ui->seekSld;
+}

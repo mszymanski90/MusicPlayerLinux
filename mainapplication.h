@@ -50,6 +50,7 @@ public slots:
     void pause();
     void setVolume(int volume);
     void stop();
+    void seek(int timeInSeconds);
 };
 
 #endif // MAINAPPLICATION_H
