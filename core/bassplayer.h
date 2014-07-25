@@ -24,6 +24,7 @@ public:
     bool stop();
     bool setVolume(float volume);
     bool seek(int timeInSeconds);
+    double getDuration();
 
 private:
     HSTREAM currentHStream_;

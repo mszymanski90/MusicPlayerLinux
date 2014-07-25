@@ -69,6 +69,12 @@ bool BASSPlayer::seek(int timeInSeconds)
                                    BASS_POS_BYTE);
 }
 
+double BASSPlayer::getDuration()
+{
+    return BASS_ChannelBytes2Seconds(currentHStream_,
+                                     BASS_ChannelGetLength(currentHStream_, BASS_POS_BYTE));
+}
+
 void BASSPlayer::openStream()
 {
     logger_.log(std::string("Core open stream"));

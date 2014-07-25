@@ -44,6 +44,7 @@ public:
     void setVolume(float volume);
     void seek(int timeInSeconds);
     void updatePosition(double timeInSeconds);
+    double getDuration();
 
 private:
     BASSPlayer player_;

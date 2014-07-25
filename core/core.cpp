@@ -72,4 +72,9 @@ void Core::updatePosition(double timeInSeconds)
     updatePositionProc_(timeInSeconds);
 }
 
+double Core::getDuration()
+{
+    return player_.getDuration();
+}
+
 

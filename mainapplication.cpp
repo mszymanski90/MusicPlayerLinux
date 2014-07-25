@@ -33,6 +33,7 @@ void MainApplication::init()
     window.show();
     core.init();
 
+    // does this do anything ?
     window.getSeekSld()->setTracking(true);
 
     connect(window.getLoadFileBt(), SIGNAL(clicked()), this, SLOT(loadFile()));
@@ -68,6 +69,7 @@ void MainApplication::loadFile()
 void MainApplication::play()
 {
     core.play();
+    window.getSeekSld()->setRange(0, core.getDuration());
 }
 
 void MainApplication::pause()
