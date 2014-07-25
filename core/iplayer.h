@@ -14,6 +14,8 @@ public:
     virtual bool stop() = 0;
     virtual bool setVolume(float volume) = 0;
     virtual bool seek(int timeInSeconds) = 0;
+    //virtual int getPositionInSeconds() = 0;
+    //virtual int getDuration() = 0;
 };
 
 #endif // IPLAYER_H

@@ -1,10 +1,19 @@
+#include <iostream>
 #include <string.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include "bassplayer.h"
 
-BASSPlayer::BASSPlayer(LoggerDevice &logger) :
+BASSPlayer::BASSPlayer(LoggerDevice &logger, std::function<void(double)> coreUpdatePositionProc) :
     currentHStream_(0),
-    logger_(logger)
+    logger_(logger),
+    coreUpdatePositionProc_(coreUpdatePositionProc)
 {
+    fileprocs.close = &BASSPlayer::closeFileProc;
+    fileprocs.length = &BASSPlayer::fileLenProc;
+    fileprocs.read = &BASSPlayer::fileReadProc;
+    fileprocs.seek = &BASSPlayer::fileSeekProc;
 }
 
 BASSPlayer::~BASSPlayer()
@@ -55,13 +64,46 @@ bool BASSPlayer::setVolume(float volume)
 
 bool BASSPlayer::seek(int timeInSeconds)
 {
-    return BASS_ChannelSetPosition(currentHStream_, timeInSeconds, BASS_POS_BYTE);
+    return BASS_ChannelSetPosition(currentHStream_,
+                                   BASS_ChannelSeconds2Bytes(currentHStream_, timeInSeconds),
+                                   BASS_POS_BYTE);
 }
 
 void BASSPlayer::openStream()
 {
     logger_.log(std::string("Core open stream"));
-    currentHStream_ = BASS_StreamCreateFile(FALSE, file_, 0, 0, 0);
+    file = fopen(file_, "rb"); // open the file
+    currentHStream_ = BASS_StreamCreateFileUser(STREAMFILE_NOBUFFER,
+                                                0,
+                                                &fileprocs,
+                                                reinterpret_cast<void*>(this));
 }
 
+void BASSPlayer::updatePosition()
+{
+    coreUpdatePositionProc_(BASS_ChannelBytes2Seconds(currentHStream_, BASS_ChannelGetPosition(currentHStream_, BASS_POS_BYTE)));
+}
 
+void CALLBACK BASSPlayer::closeFileProc(void *user)
+{
+    fclose(reinterpret_cast<BASSPlayer*>(user)->file); // close the file
+}
+
+QWORD CALLBACK BASSPlayer::fileLenProc(void *user)
+{
+    struct stat s;
+    fstat(fileno(reinterpret_cast<BASSPlayer*>(user)->file), &s);
+    return s.st_size; // return the file length
+}
+
+DWORD CALLBACK BASSPlayer::fileReadProc(void *buffer, DWORD length, void *user)
+{
+    reinterpret_cast<BASSPlayer*>(user)->updatePosition();
+    return fread(buffer, 1, length, reinterpret_cast<BASSPlayer*>(user)->file);
+}
+
+BOOL CALLBACK BASSPlayer::fileSeekProc(QWORD offset, void *user)
+{
+    //reinterpret_cast<BASSPlayer*>(user)->updatePosition();
+    return !fseek(reinterpret_cast<BASSPlayer*>(user)->file, offset, SEEK_SET);
+}

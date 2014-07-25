@@ -24,7 +24,7 @@
 
 MainApplication::MainApplication(QObject *parent) :
     QObject(parent),
-    core(logger)
+    core(logger, std::bind(&MainApplication::updatePositionProc, this, std::placeholders::_1))
 {
 }
 
@@ -33,12 +33,20 @@ void MainApplication::init()
     window.show();
     core.init();
 
+    window.getSeekSld()->setTracking(true);
+
     connect(window.getLoadFileBt(), SIGNAL(clicked()), this, SLOT(loadFile()));
     connect(window.getPlayBt(), SIGNAL(clicked()), this, SLOT(play()));
     connect(window.getPauseBt(), SIGNAL(clicked()), this, SLOT(pause()));
     connect(window.getStopBt(), SIGNAL(clicked()), this, SLOT(stop()));
     connect(window.getVolumeSld(), SIGNAL(valueChanged(int)), this, SLOT(setVolume(int)));
-    connect(window.getSeekSld(), SIGNAL(valueChanged(int)), this, SLOT(seek(int)));
+    connect(window.getSeekSld(), SIGNAL(valueChangedByUser(int)), this, SLOT(seek(int)));
+    connect(this, SIGNAL(updatePosition(int)), window.getSeekSld(), SLOT(updatePosition(int)));
+}
+
+void MainApplication::updatePositionProc(double timeInSeconds)
+{
+    emit updatePosition(static_cast<int>(timeInSeconds));
 }
 
 QByteArray MainApplication::getPathFromFileDialog()
@@ -54,7 +62,7 @@ void MainApplication::loadFile()
     logger.log(std::string("MA load file"));
     QByteArray qtpath = getPathFromFileDialog();
     logger.log(std::string("MA converted path to QByteArray"));
-    core.loadFile(qtpath.constData(), qtpath.size());
+    core.loadFile(qtpath.constData());
 }
 
 void MainApplication::play()

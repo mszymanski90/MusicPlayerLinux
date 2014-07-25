@@ -43,7 +43,8 @@ SOURCES += main.cpp\
     core/stateidle.cpp \
     core/statepaused.cpp \
     core/bassplayer.cpp \
-    core/iplayer.cpp
+    core/iplayer.cpp \
+    qseekslider.cpp
 
 HEADERS  += mainwindow.h \
     bass.h \
@@ -55,7 +56,8 @@ HEADERS  += mainwindow.h \
     core/stateidle.h \
     core/statepaused.h \
     core/bassplayer.h \
-    core/iplayer.h
+    core/iplayer.h \
+    qseekslider.h
 
 FORMS    += mainwindow.ui
 

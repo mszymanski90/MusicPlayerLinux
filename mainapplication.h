@@ -23,6 +23,7 @@
 
 #include <QObject>
 #include "mainwindow.h"
+#include "qseekslider.h"
 #include "core/core.h"
 #include "loggerdevice.h"
 
@@ -32,6 +33,7 @@ class MainApplication : public QObject
 public:
     explicit MainApplication(QObject *parent = 0);
     void init();
+    void updatePositionProc(double timeInSeconds);
 
 private:
     MainWindow window;
@@ -43,6 +45,7 @@ private:
     QByteArray getPathFromFileDialog();
 
 signals:
+    void updatePosition(int timeInSeconds);
 
 public slots:
     void loadFile();

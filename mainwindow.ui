@@ -98,7 +98,7 @@
      <string>Volume</string>
     </property>
    </widget>
-   <widget class="QSlider" name="seekSld">
+   <widget class="QSeekSlider" name="seekSld">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -106,6 +106,9 @@
       <width>411</width>
       <height>19</height>
      </rect>
+    </property>
+    <property name="maximum">
+     <number>100</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -157,6 +160,13 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QSeekSlider</class>
+   <extends>QSlider</extends>
+   <header>qseekslider.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

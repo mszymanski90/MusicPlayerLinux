@@ -34,15 +34,16 @@
 class Core
 {
 public:
-    Core(LoggerDevice &logger);
+    Core(LoggerDevice &logger, std::function<void(double)> updatePositionProc);
     ~Core();
     void init();
-    void loadFile(const char* filePath, int size);
+    void loadFile(const char* filePath);
     void play();
     void pause();
     void stop();
     void setVolume(float volume);
     void seek(int timeInSeconds);
+    void updatePosition(double timeInSeconds);
 
 private:
     BASSPlayer player_;
@@ -51,6 +52,7 @@ private:
     // M:
     // czemu nie std::string albo QString?
     char filePath_[MAX_PATH];
+    std::function<void(double)> updatePositionProc_;
 };
 
 #endif // CORE_H

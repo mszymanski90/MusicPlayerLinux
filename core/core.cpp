@@ -20,9 +20,10 @@
 
 #include "core.h"
 
-Core::Core(LoggerDevice &logger) :
+Core::Core(LoggerDevice &logger, std::function<void(double)> updatePositionProc) :
     logger_(logger),
-    player_(logger)
+    player_(logger, std::bind(&Core::updatePosition, this, std::placeholders::_1)),
+    updatePositionProc_(updatePositionProc)
 {
     playerState_.reset(new StateIdle(player_));
 }
@@ -36,11 +37,9 @@ void Core::init()
     player_.init();
 }
 
-void Core::loadFile(const char *filePath, int size)
+void Core::loadFile(const char *filePath)
 {
-    logger_.log(std::string("Core strcpy: ") + std::string(filePath));
     strcpy(filePath_, filePath);
-    logger_.log(std::string("Core strcpy: ") + std::string(filePath_));
 }
 
 void Core::play()
@@ -65,7 +64,12 @@ void Core::setVolume(float volume)
 
 void Core::seek(int timeInSeconds)
 {
-    playerState_.reset(playerState_->seek(timeInSeconds*44100));
+    playerState_.reset(playerState_->seek(timeInSeconds));
+}
+
+void Core::updatePosition(double timeInSeconds)
+{
+    updatePositionProc_(timeInSeconds);
 }
 
 
