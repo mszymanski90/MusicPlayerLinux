@@ -5,10 +5,11 @@
 #include <sys/types.h>
 #include "bassplayer.h"
 
-BASSPlayer::BASSPlayer(LoggerDevice &logger, std::function<void(double)> coreUpdatePositionProc) :
-    currentHStream_(0),
+BASSPlayer::BASSPlayer(IPlayerObserver& observer, LoggerDevice &logger) :
+    IPlayer(observer),
     logger_(logger),
-    coreUpdatePositionProc_(coreUpdatePositionProc)
+    currentHStream_(0),
+    playbackStopped_(true)
 {
     fileprocs.close = &BASSPlayer::closeFileProc;
     fileprocs.length = &BASSPlayer::fileLenProc;
@@ -69,10 +70,9 @@ bool BASSPlayer::seek(int timeInSeconds)
                                    BASS_POS_BYTE);
 }
 
-double BASSPlayer::getDuration()
+void BASSPlayer::notify()
 {
-    return BASS_ChannelBytes2Seconds(currentHStream_,
-                                     BASS_ChannelGetLength(currentHStream_, BASS_POS_BYTE));
+    observer_.update(playbackStopped_, getPositionInSeconds(), getDurationInSeconds());
 }
 
 void BASSPlayer::openStream()
@@ -83,15 +83,23 @@ void BASSPlayer::openStream()
                                                 0,
                                                 &fileprocs,
                                                 reinterpret_cast<void*>(this));
+
+    BASS_ChannelSetSync(currentHStream_, BASS_SYNC_END | BASS_SYNC_ONETIME, 0, &BASSPlayer::endReachedProc, reinterpret_cast<void*>(this));
 }
 
-void BASSPlayer::updatePosition()
+double BASSPlayer::getPositionInSeconds()
 {
-    coreUpdatePositionProc_(BASS_ChannelBytes2Seconds(currentHStream_, BASS_ChannelGetPosition(currentHStream_, BASS_POS_BYTE)));
+    return BASS_ChannelBytes2Seconds(currentHStream_, BASS_ChannelGetPosition(currentHStream_, BASS_POS_BYTE));
+}
+
+double BASSPlayer::getDurationInSeconds()
+{
+    return BASS_ChannelBytes2Seconds(currentHStream_, BASS_ChannelGetLength(currentHStream_, BASS_POS_BYTE));
 }
 
 void CALLBACK BASSPlayer::closeFileProc(void *user)
 {
+    std::cout << "closeFileProc" << std::endl;
     fclose(reinterpret_cast<BASSPlayer*>(user)->file); // close the file
 }
 
@@ -104,12 +112,19 @@ QWORD CALLBACK BASSPlayer::fileLenProc(void *user)
 
 DWORD CALLBACK BASSPlayer::fileReadProc(void *buffer, DWORD length, void *user)
 {
-    reinterpret_cast<BASSPlayer*>(user)->updatePosition();
+    reinterpret_cast<BASSPlayer*>(user)->playbackStopped_ = false;
+    reinterpret_cast<BASSPlayer*>(user)->notify();
     return fread(buffer, 1, length, reinterpret_cast<BASSPlayer*>(user)->file);
 }
 
 BOOL CALLBACK BASSPlayer::fileSeekProc(QWORD offset, void *user)
 {
-    //reinterpret_cast<BASSPlayer*>(user)->updatePosition();
+    reinterpret_cast<BASSPlayer*>(user)->notify();
     return !fseek(reinterpret_cast<BASSPlayer*>(user)->file, offset, SEEK_SET);
+}
+
+void BASSPlayer::endReachedProc(HSYNC handle, DWORD channel, DWORD data, void *user)
+{
+    reinterpret_cast<BASSPlayer*>(user)->playbackStopped_ = true;
+    reinterpret_cast<BASSPlayer*>(user)->notify();
 }

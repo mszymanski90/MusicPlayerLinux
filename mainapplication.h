@@ -27,13 +27,13 @@
 #include "core/core.h"
 #include "loggerdevice.h"
 
-class MainApplication : public QObject
+class MainApplication : public QObject, public IPlayerObserver
 {
     Q_OBJECT
 public:
     explicit MainApplication(QObject *parent = 0);
     void init();
-    void updatePositionProc(double timeInSeconds);
+    void update(bool playbackStopped, double position, double duration);
 
 private:
     MainWindow window;
@@ -43,9 +43,11 @@ private:
     // M:
     // Czemu nie std::string lub QString?
     QByteArray getPathFromFileDialog();
+    double duration_;
 
 signals:
     void updatePosition(int timeInSeconds);
+    void disableSeekSld(bool disabled);
 
 public slots:
     void loadFile();

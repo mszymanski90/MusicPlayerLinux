@@ -20,11 +20,12 @@
 
 #include <string>
 #include <QFileDialog>
+#include <math.h>
 #include "mainapplication.h"
 
 MainApplication::MainApplication(QObject *parent) :
     QObject(parent),
-    core(logger, std::bind(&MainApplication::updatePositionProc, this, std::placeholders::_1))
+    core(*this, logger)
 {
 }
 
@@ -35,6 +36,7 @@ void MainApplication::init()
 
     // does this do anything ?
     window.getSeekSld()->setTracking(true);
+    //window.getSeekSld()->setDisabled(true);
 
     connect(window.getLoadFileBt(), SIGNAL(clicked()), this, SLOT(loadFile()));
     connect(window.getPlayBt(), SIGNAL(clicked()), this, SLOT(play()));
@@ -43,11 +45,14 @@ void MainApplication::init()
     connect(window.getVolumeSld(), SIGNAL(valueChanged(int)), this, SLOT(setVolume(int)));
     connect(window.getSeekSld(), SIGNAL(valueChangedByUser(int)), this, SLOT(seek(int)));
     connect(this, SIGNAL(updatePosition(int)), window.getSeekSld(), SLOT(updatePosition(int)));
+    connect(this, SIGNAL(disableSeekSld(bool)), window.getSeekSld(), SLOT(setDisabled(bool)));
 }
 
-void MainApplication::updatePositionProc(double timeInSeconds)
+void MainApplication::update(bool playbackStopped, double position, double duration)
 {
-    emit updatePosition(static_cast<int>(timeInSeconds));
+    emit updatePosition(static_cast<int>(position*100/duration));
+    emit disableSeekSld(playbackStopped);
+    duration_ = duration;
 }
 
 QByteArray MainApplication::getPathFromFileDialog()
@@ -69,7 +74,6 @@ void MainApplication::loadFile()
 void MainApplication::play()
 {
     core.play();
-    window.getSeekSld()->setRange(0, core.getDuration());
 }
 
 void MainApplication::pause()
@@ -89,5 +93,5 @@ void MainApplication::stop()
 
 void MainApplication::seek(int timeInSeconds)
 {
-    core.seek(timeInSeconds);
+    core.seek(ceil(timeInSeconds*duration_/100));
 }

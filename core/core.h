@@ -30,11 +30,12 @@
 #include "statepaused.h"
 #include "stateplayback.h"
 #include "loggerdevice.h"
+#include "iplayerobserver.h"
 
-class Core
+class Core : public IPlayerObserver, public IPlayerSubject
 {
 public:
-    Core(LoggerDevice &logger, std::function<void(double)> updatePositionProc);
+    Core(IPlayerObserver& observer, LoggerDevice &logger);
     ~Core();
     void init();
     void loadFile(const char* filePath);
@@ -43,8 +44,10 @@ public:
     void stop();
     void setVolume(float volume);
     void seek(int timeInSeconds);
-    void updatePosition(double timeInSeconds);
-    double getDuration();
+
+    void update(bool playbackStopped, double position, double duration);
+
+    void notify();
 
 private:
     BASSPlayer player_;
@@ -53,7 +56,10 @@ private:
     // M:
     // czemu nie std::string albo QString?
     char filePath_[MAX_PATH];
-    std::function<void(double)> updatePositionProc_;
+
+    bool playbackStopped_;
+    double position_;
+    double duration_;
 };
 
 #endif // CORE_H

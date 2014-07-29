@@ -20,10 +20,13 @@
 
 #include "core.h"
 
-Core::Core(LoggerDevice &logger, std::function<void(double)> updatePositionProc) :
+Core::Core(IPlayerObserver &observer, LoggerDevice &logger) :
+    IPlayerSubject(observer),
     logger_(logger),
-    player_(logger, std::bind(&Core::updatePosition, this, std::placeholders::_1)),
-    updatePositionProc_(updatePositionProc)
+    player_(*this, logger),
+    playbackStopped_(true),
+    position_(0.0),
+    duration_(0.0)
 {
     playerState_.reset(new StateIdle(player_));
 }
@@ -67,14 +70,18 @@ void Core::seek(int timeInSeconds)
     playerState_.reset(playerState_->seek(timeInSeconds));
 }
 
-void Core::updatePosition(double timeInSeconds)
+void Core::update(bool playbackStopped, double position, double duration)
 {
-    updatePositionProc_(timeInSeconds);
+    playbackStopped_ = playbackStopped;
+    position_ = position;
+    duration_ = duration;
+    if(playbackStopped_) playerState_.reset(new StateIdle(player_));
+    notify();
 }
 
-double Core::getDuration()
+void Core::notify()
 {
-    return player_.getDuration();
+    observer_.update(playbackStopped_, position_, duration_);
 }
 
 

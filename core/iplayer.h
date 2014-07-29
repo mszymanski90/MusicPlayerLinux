@@ -1,9 +1,12 @@
 #ifndef IPLAYER_H
 #define IPLAYER_H
 
-class IPlayer
+#include "iplayerobserver.h"
+
+class IPlayer : public IPlayerSubject
 {
 public:
+    IPlayer(IPlayerObserver& observer);
     virtual ~IPlayer();
     virtual bool init() = 0;
     // M:
@@ -14,7 +17,6 @@ public:
     virtual bool stop() = 0;
     virtual bool setVolume(float volume) = 0;
     virtual bool seek(int timeInSeconds) = 0;
-    virtual double getDuration() = 0;
 };
 
 #endif // IPLAYER_H

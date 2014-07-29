@@ -13,7 +13,7 @@
 class BASSPlayer : public IPlayer
 {
 public:
-    BASSPlayer(LoggerDevice &logger, std::function<void(double)> coreUpdatePositionProc);
+    BASSPlayer(IPlayerObserver& observer, LoggerDevice &logger);
     ~BASSPlayer();
     bool init();
     // M:
@@ -24,7 +24,8 @@ public:
     bool stop();
     bool setVolume(float volume);
     bool seek(int timeInSeconds);
-    double getDuration();
+
+    void notify();
 
 private:
     HSTREAM currentHStream_;
@@ -36,15 +37,18 @@ private:
     char file_[MAX_PATH];
     LoggerDevice &logger_;
     FILE *file;
-    std::function<void(double)> coreUpdatePositionProc_;
+    bool playbackStopped_;
 
     void openStream();
-    void updatePosition();
+    double getPositionInSeconds();
+    double getDurationInSeconds();
 
     static void CALLBACK closeFileProc(void *user);
     static QWORD CALLBACK fileLenProc(void *user);
     static DWORD CALLBACK fileReadProc(void *buffer, DWORD length, void *user);
     static BOOL CALLBACK fileSeekProc(QWORD offset, void *user);
+
+    static void CALLBACK endReachedProc(HSYNC handle, DWORD channel, DWORD data, void *user);
 };
 
 #endif // BASSPLAYER_H
