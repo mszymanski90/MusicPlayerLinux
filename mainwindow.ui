@@ -66,7 +66,7 @@
      <string>Play</string>
     </property>
    </widget>
-   <widget class="QSlider" name="volumeSld">
+   <widget class="QVolumeSlider" name="volumeSld">
     <property name="geometry">
      <rect>
       <x>390</x>
@@ -75,11 +75,14 @@
       <height>19</height>
      </rect>
     </property>
+    <property name="minimum">
+     <number>0</number>
+    </property>
     <property name="maximum">
-     <number>100</number>
+     <number>1000</number>
     </property>
     <property name="sliderPosition">
-     <number>100</number>
+     <number>1000</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -165,6 +168,11 @@
    <class>QSeekSlider</class>
    <extends>QSlider</extends>
    <header>qseekslider.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QVolumeSlider</class>
+   <extends>QSlider</extends>
+   <header>qvolumeslider.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

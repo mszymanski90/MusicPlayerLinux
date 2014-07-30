@@ -53,7 +53,7 @@ public slots:
     void loadFile();
     void play();
     void pause();
-    void setVolume(int volume);
+    void setVolume(double volumeInPower);
     void stop();
     void seek(int timeInSeconds);
 };

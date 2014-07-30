@@ -53,7 +53,7 @@ QPushButton* MainWindow::getStopBt()
     return ui->stopBt;
 }
 
-QSlider *MainWindow::getVolumeSld()
+QVolumeSlider *MainWindow::getVolumeSld()
 {
     return ui->volumeSld;
 }

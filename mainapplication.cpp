@@ -42,7 +42,7 @@ void MainApplication::init()
     connect(window.getPlayBt(), SIGNAL(clicked()), this, SLOT(play()));
     connect(window.getPauseBt(), SIGNAL(clicked()), this, SLOT(pause()));
     connect(window.getStopBt(), SIGNAL(clicked()), this, SLOT(stop()));
-    connect(window.getVolumeSld(), SIGNAL(valueChanged(int)), this, SLOT(setVolume(int)));
+    connect(window.getVolumeSld(), SIGNAL(volumeChanged(double)), this, SLOT(setVolume(double)));
     connect(window.getSeekSld(), SIGNAL(valueChangedByUser(int)), this, SLOT(seek(int)));
     connect(this, SIGNAL(updatePosition(int)), window.getSeekSld(), SLOT(updatePosition(int)));
     connect(this, SIGNAL(disableSeekSld(bool)), window.getSeekSld(), SLOT(setDisabled(bool)));
@@ -81,9 +81,9 @@ void MainApplication::pause()
     core.pause();
 }
 
-void MainApplication::setVolume(int volume)
+void MainApplication::setVolume(double volumeInPower)
 {
-    core.setVolume(volume / 100.0);
+    core.setVolume(volumeInPower);
 }
 
 void MainApplication::stop()

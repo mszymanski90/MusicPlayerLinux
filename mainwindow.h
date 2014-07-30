@@ -25,6 +25,7 @@
 #include <QPushButton>
 #include <QSlider>
 #include "qseekslider.h"
+#include "qvolumeslider.h"
 
 namespace Ui {
 class MainWindow;
@@ -42,7 +43,7 @@ public:
     QPushButton* getPlayBt();
     QPushButton* getPauseBt();
     QPushButton* getStopBt();
-    QSlider* getVolumeSld();
+    QVolumeSlider *getVolumeSld();
     QSeekSlider* getSeekSld();
 
 private:
