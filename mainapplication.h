@@ -24,6 +24,7 @@
 #include <QObject>
 #include "mainwindow.h"
 #include "qseekslider.h"
+#include "qplaylist.h"
 #include "core/core.h"
 #include "loggerdevice.h"
 
@@ -33,6 +34,7 @@ class MainApplication : public QObject, public IPlayerObserver
 public:
     explicit MainApplication(QObject *parent = 0);
     void init();
+    // TODO: rename playbackStopped to reachedEnd
     void update(bool playbackStopped, double position, double duration);
 
 private:
@@ -40,17 +42,15 @@ private:
     Core core;
     LoggerDevice logger;
 
-    // M:
-    // Czemu nie std::string lub QString?
-    QByteArray getPathFromFileDialog();
     double duration_;
 
 signals:
     void updatePosition(int timeInSeconds);
-    void disableSeekSld(bool disabled);
+    void enableSeekSld(bool enable);
+    void resetSeekSld();
+    void loadNextSong();
 
 public slots:
-    void loadFile();
     void play();
     void pause();
     void setVolume(double volumeInPower);

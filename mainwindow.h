@@ -24,8 +24,10 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QSlider>
+#include <QListWidget>
 #include "qseekslider.h"
 #include "qvolumeslider.h"
+#include "qplaylist.h"
 
 namespace Ui {
 class MainWindow;
@@ -39,12 +41,13 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    QPushButton* getLoadFileBt();
     QPushButton* getPlayBt();
     QPushButton* getPauseBt();
     QPushButton* getStopBt();
+    QPushButton* getAddBt();
     QVolumeSlider *getVolumeSld();
     QSeekSlider* getSeekSld();
+    QPlaylist* getPlaylist();
 
 private:
     Ui::MainWindow *ui;

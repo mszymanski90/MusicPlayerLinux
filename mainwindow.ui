@@ -6,31 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>755</width>
-    <height>321</height>
+    <width>760</width>
+    <height>328</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="loadFileBt">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>10</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Load file</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pauseBt">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>90</x>
       <y>10</y>
       <width>75</width>
       <height>23</height>
@@ -43,7 +30,7 @@
    <widget class="QPushButton" name="stopBt">
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>170</x>
       <y>10</y>
       <width>75</width>
       <height>23</height>
@@ -56,7 +43,7 @@
    <widget class="QPushButton" name="playBt">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>10</x>
       <y>10</y>
       <width>75</width>
       <height>23</height>
@@ -69,9 +56,9 @@
    <widget class="QVolumeSlider" name="volumeSld">
     <property name="geometry">
      <rect>
-      <x>390</x>
+      <x>250</x>
       <y>10</y>
-      <width>161</width>
+      <width>121</width>
       <height>19</height>
      </rect>
     </property>
@@ -88,25 +75,12 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QLabel" name="volumeLb">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>10</y>
-      <width>46</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Volume</string>
-    </property>
-   </widget>
    <widget class="QSeekSlider" name="seekSld">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>50</y>
-      <width>411</width>
+      <x>390</x>
+      <y>10</y>
+      <width>361</width>
       <height>19</height>
      </rect>
     </property>
@@ -117,17 +91,27 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QLabel" name="seekLb">
+   <widget class="QPlaylist" name="playlist">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>50</y>
-      <width>46</width>
-      <height>13</height>
+      <x>10</x>
+      <y>40</y>
+      <width>741</width>
+      <height>201</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addBt">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>250</y>
+      <width>75</width>
+      <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Seek</string>
+     <string>Add</string>
     </property>
    </widget>
   </widget>
@@ -136,7 +120,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>755</width>
+     <width>760</width>
      <height>21</height>
     </rect>
    </property>
@@ -173,6 +157,11 @@
    <class>QVolumeSlider</class>
    <extends>QSlider</extends>
    <header>qvolumeslider.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QPlaylist</class>
+   <extends>QListWidget</extends>
+   <header>qplaylist.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

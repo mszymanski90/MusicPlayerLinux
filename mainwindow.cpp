@@ -33,11 +33,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-QPushButton* MainWindow::getLoadFileBt()
-{
-    return ui->loadFileBt;
-}
-
 QPushButton *MainWindow::getPlayBt()
 {
     return ui->playBt;
@@ -53,6 +48,11 @@ QPushButton* MainWindow::getStopBt()
     return ui->stopBt;
 }
 
+QPushButton *MainWindow::getAddBt()
+{
+    return ui->addBt;
+}
+
 QVolumeSlider *MainWindow::getVolumeSld()
 {
     return ui->volumeSld;
@@ -61,4 +61,9 @@ QVolumeSlider *MainWindow::getVolumeSld()
 QSeekSlider *MainWindow::getSeekSld()
 {
     return ui->seekSld;
+}
+
+QPlaylist *MainWindow::getPlaylist()
+{
+    return ui->playlist;
 }

@@ -99,7 +99,6 @@ double BASSPlayer::getDurationInSeconds()
 
 void CALLBACK BASSPlayer::closeFileProc(void *user)
 {
-    std::cout << "closeFileProc" << std::endl;
     fclose(reinterpret_cast<BASSPlayer*>(user)->file); // close the file
 }
 
@@ -107,7 +106,7 @@ QWORD CALLBACK BASSPlayer::fileLenProc(void *user)
 {
     struct stat s;
     fstat(fileno(reinterpret_cast<BASSPlayer*>(user)->file), &s);
-    return s.st_size; // return the file length
+    return s.st_size;
 }
 
 DWORD CALLBACK BASSPlayer::fileReadProc(void *buffer, DWORD length, void *user)

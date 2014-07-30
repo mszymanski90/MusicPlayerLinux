@@ -58,3 +58,9 @@ void QSeekSlider::userSliderRelease()
 {
     if(userDragsSlider) emit valueChangedByUser(QSlider::value());
 }
+
+void QSeekSlider::resetToStoppedPos()
+{
+    setDisabled(true);
+    setValue(0);
+}

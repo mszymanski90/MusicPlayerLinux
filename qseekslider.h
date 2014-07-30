@@ -19,6 +19,7 @@ signals:
 public slots:
     void updatePosition(int setPosition);
     void userSliderRelease();
+    void resetToStoppedPos();
 
 private:
     bool userDragsSlider;
