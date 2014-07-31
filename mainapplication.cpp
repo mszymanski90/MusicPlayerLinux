@@ -67,7 +67,7 @@ void MainApplication::play()
 {
     if(window.getPlaylist()->songInQueue())
     {
-        QString filePath = window.getPlaylist()->getSong();
+        QString filePath = window.getPlaylist()->getCurrentSong();
         logger.log(std::string("MA load file"));
         QByteArray qtpath = filePath.toLocal8Bit();
         core.loadFile(qtpath.constData());

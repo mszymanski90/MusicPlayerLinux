@@ -24,7 +24,7 @@
 #include <QObject>
 #include "mainwindow.h"
 #include "qseekslider.h"
-#include "qplaylist.h"
+#include "playlistmodel.h"
 #include "core/core.h"
 #include "loggerdevice.h"
 
@@ -40,6 +40,7 @@ public:
 private:
     MainWindow window;
     Core core;
+    PlaylistModel playlist;
     LoggerDevice logger;
 
     double duration_;

@@ -11,3 +11,4 @@ ui_mainwindow.h
 Makefile
 *.Debug
 *.Release
+*.autosave

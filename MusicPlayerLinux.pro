@@ -47,7 +47,8 @@ SOURCES += main.cpp\
     qseekslider.cpp \
     core/iplayerobserver.cpp \
     qvolumeslider.cpp \
-    qplaylist.cpp
+    qplaylist.cpp \
+    playlistmodel.cpp
 
 HEADERS  += mainwindow.h \
     bass.h \
@@ -63,7 +64,8 @@ HEADERS  += mainwindow.h \
     qseekslider.h \
     core/iplayerobserver.h \
     qvolumeslider.h \
-    qplaylist.h
+    qplaylist.h \
+    playlistmodel.h
 
 FORMS    += mainwindow.ui
 
