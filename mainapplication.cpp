@@ -20,12 +20,14 @@
 
 #include <string>
 #include <QFileDialog>
+#include <QTableView>
 #include <math.h>
 #include "mainapplication.h"
 
 MainApplication::MainApplication(QObject *parent) :
     QObject(parent),
-    core(*this, logger)
+    core(*this, logger),
+    playlistModel(this)
 {
 }
 
@@ -34,6 +36,8 @@ void MainApplication::init()
     window.show();
     core.init();
 
+    window.getPlaylist()->setModel(&playlistModel);
+
     // does this do anything ?
     window.getSeekSld()->setTracking(true);
     window.getSeekSld()->setDisabled(true);
@@ -41,7 +45,7 @@ void MainApplication::init()
     connect(window.getPlayBt(), SIGNAL(clicked()), this, SLOT(play()));
     connect(window.getPauseBt(), SIGNAL(clicked()), this, SLOT(pause()));
     connect(window.getStopBt(), SIGNAL(clicked()), this, SLOT(stop()));
-    connect(window.getAddBt(), SIGNAL(clicked()), window.getPlaylist(), SLOT(addSong()));
+    connect(window.getAddBt(), SIGNAL(clicked()), this, SLOT(addFileToPlaylist()));
     connect(window.getVolumeSld(), SIGNAL(volumeChanged(double)), this, SLOT(setVolume(double)));
     connect(window.getSeekSld(), SIGNAL(valueChangedByUser(int)), this, SLOT(seek(int)));
     connect(this, SIGNAL(updatePosition(int)), window.getSeekSld(), SLOT(updatePosition(int)));
@@ -58,16 +62,25 @@ void MainApplication::update(bool playbackStopped, double position, double durat
     if(playbackStopped)
     {
         emit resetSeekSld();
-        window.getPlaylist()->setNextSong();
+        playlistModel.next();
         play();
     }
 }
 
+void MainApplication::addFileToPlaylist()
+{
+    QString filePath = QFileDialog::getOpenFileName(&window,
+             tr("Open file"), "/home/jana", tr("Image Files (*.mp3 *.m4a *.ogg)"));
+
+    playlistModel.appendFile(filePath);
+    //playlistModel.refreshData();
+}
+
 void MainApplication::play()
 {
-    if(window.getPlaylist()->songInQueue())
+    if(playlistModel.isFileInQueue())
     {
-        QString filePath = window.getPlaylist()->getCurrentSong();
+        QString filePath = playlistModel.getCurrentFile();
         logger.log(std::string("MA load file"));
         QByteArray qtpath = filePath.toLocal8Bit();
         core.loadFile(qtpath.constData());
@@ -75,7 +88,7 @@ void MainApplication::play()
     }
     else
     {
-        window.getPlaylist()->resetPlaylist();
+        playlistModel.resetPlaylist();
         logger.log(std::string("Playlist reached end"));
     }
 }

@@ -1,85 +1,95 @@
 #include "playlistmodel.h"
 
 PlaylistModel::PlaylistModel(QObject *parent) :
-    QAbstractTableModel(parent),
-    fieldsCount_(0)
+    QAbstractTableModel(parent)
 {
-    fieldsCount_ = 1;
 }
 
 int PlaylistModel::rowCount(const QModelIndex &parent) const
 {
-    return fileList_.getSize();
+    return fileList.size();
 }
 
 int PlaylistModel::columnCount(const QModelIndex &parent) const
 {
-    return fieldsCount_;
+    return 1;
 }
 
 QVariant PlaylistModel::data(const QModelIndex &index, int role) const
 {
     if (role == Qt::DisplayRole)
     {
-        return fileList_.getFileAtPosition(index.row());
+        return fileList.at(index.row());
     }
     return QVariant();
 }
 
+bool PlaylistModel::insertRows(int row, int count, const QModelIndex &parent)
+{
+    beginInsertRows(parent, row, row+count-1);
+
+    endInsertRows();
+}
+
+void PlaylistModel::refreshData()
+{
+    QModelIndex topLeft = createIndex(0, 0);
+    QModelIndex bottomRight = createIndex(fileList.size(), 0);
+    emit dataChanged(topLeft, bottomRight);
+}
+
+void PlaylistModel::appendFile(QString filePath)
+{
+    insertRows(1, 1);
+    fileList.append(filePath);
+    if(fileList.size() == 1) currentFile = fileList.begin();
+}
+
+void PlaylistModel::insertFileAtPosition(QString filePath, const int position)
+{
+    fileList.insert(position, filePath);
+    if(fileList.size() == 1) currentFile = fileList.begin();
+}
+
+void PlaylistModel::removeFileByPosition(const int position)
+{
+    fileList.removeAt(position);
+}
+
+QString PlaylistModel::getFileAtPosition(const int position)
+{
+    fileList.at(position);
+}
+
 QString PlaylistModel::getCurrentFile()
 {
-    return fileList_.getCurrentFile();
-}
-
-bool PlaylistModel::endReached()
-{
-    return fileList_.endReached();
-}
-
-PlaylistModel::FileList::FileList()
-{
-}
-
-void PlaylistModel::FileList::appendFile(QString filePath)
-{
-    data.append(filePath);
-    if(data.size() == 1) currentFile = data.begin();
-}
-
-void PlaylistModel::FileList::insertFileAtPosition(QString filePath, const int position)
-{
-    data.insert(position, filePath);
-    if(data.size() == 1) currentFile = data.begin();
-}
-
-void PlaylistModel::FileList::removeFileByPosition(const int position)
-{
-    data.removeAt(position);
-}
-
-QString PlaylistModel::FileList::getFileAtPosition(const int position)
-{
-    data.at(position);
-}
-
-QString PlaylistModel::FileList::getCurrentFile()
-{
-    if(!data.empty()) return *currentFile;
+    if(!fileList.empty()) return *currentFile;
     else return tr("");
 }
 
-bool PlaylistModel::FileList::endReached()
+void PlaylistModel::next()
 {
-    if(currentFile == data.end()) return true;
+    if(currentFile != fileList.end()) currentFile++;
+}
+
+void PlaylistModel::previous()
+{
+    if(currentFile != fileList.begin()) currentFile--;
+}
+
+bool PlaylistModel::isFileInQueue()
+{
+    if(currentFile != fileList.end()) return true;
     else return false;
 }
 
-void PlaylistModel::FileList::resetPlaylist()
+void PlaylistModel::resetPlaylist()
 {
-    currentFile = data.begin();
+    currentFile = fileList.begin();
 }
 
-int PlaylistModel::FileList::getSize()
+int PlaylistModel::getSize()
 {
-    return data.size();
+    return fileList.size();
 }
+

@@ -63,7 +63,7 @@ QSeekSlider *MainWindow::getSeekSld()
     return ui->seekSld;
 }
 
-QPlaylist *MainWindow::getPlaylist()
+QTableView *MainWindow::getPlaylist()
 {
     return ui->playlist;
 }

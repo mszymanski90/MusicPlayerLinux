@@ -25,6 +25,7 @@
 #include "mainwindow.h"
 #include "qseekslider.h"
 #include "playlistmodel.h"
+#include "playlistdata.h"
 #include "core/core.h"
 #include "loggerdevice.h"
 
@@ -40,7 +41,7 @@ public:
 private:
     MainWindow window;
     Core core;
-    PlaylistModel playlist;
+    PlaylistModel playlistModel;
     LoggerDevice logger;
 
     double duration_;
@@ -52,6 +53,7 @@ signals:
     void loadNextSong();
 
 public slots:
+    void addFileToPlaylist();
     void play();
     void pause();
     void setVolume(double volumeInPower);

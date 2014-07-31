@@ -104,7 +104,7 @@
      <string>Add</string>
     </property>
    </widget>
-   <widget class="QPlaylist" name="playlist">
+   <widget class="QTableView" name="playlist">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -157,11 +157,6 @@
    <class>QVolumeSlider</class>
    <extends>QSlider</extends>
    <header>qvolumeslider.h</header>
-  </customwidget>
-  <customwidget>
-   <class>QPlaylist</class>
-   <extends>QTableView</extends>
-   <header>qplaylist.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

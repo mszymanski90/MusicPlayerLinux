@@ -25,9 +25,9 @@
 #include <QPushButton>
 #include <QSlider>
 #include <QListWidget>
+#include <QTableView>
 #include "qseekslider.h"
 #include "qvolumeslider.h"
-#include "qplaylist.h"
 
 namespace Ui {
 class MainWindow;
@@ -47,7 +47,7 @@ public:
     QPushButton* getAddBt();
     QVolumeSlider *getVolumeSld();
     QSeekSlider* getSeekSld();
-    QPlaylist* getPlaylist();
+    QTableView* getPlaylist();
 
 private:
     Ui::MainWindow *ui;
