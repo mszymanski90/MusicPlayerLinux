@@ -18,7 +18,7 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-QT       += core gui
+QT       += core gui multimedia
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = MusicPlayerLinux
@@ -47,7 +47,8 @@ SOURCES += main.cpp\
     qseekslider.cpp \
     core/iplayerobserver.cpp \
     qvolumeslider.cpp \
-    playlistmodel.cpp
+    playlistmodel.cpp \
+    tagextractor.cpp
 
 HEADERS  += mainwindow.h \
     bass.h \
@@ -63,7 +64,8 @@ HEADERS  += mainwindow.h \
     qseekslider.h \
     core/iplayerobserver.h \
     qvolumeslider.h \
-    playlistmodel.h
+    playlistmodel.h \
+    tagextractor.h
 
 FORMS    += mainwindow.ui
 
