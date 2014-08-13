@@ -41,13 +41,17 @@ QString TagExtractor::getDuration(QString filePath)
 QString TagExtractor::secondsToTime(int seconds)
 {
     QString hours;
+    QString secs;
 
     if(seconds/60/60 == 0) hours = "";
     else hours = QString::number(seconds/60/60) + QString(":");
 
+    if(seconds%60 < 10) secs = "0" + QString::number(seconds%60);
+    else secs = QString::number(seconds%60);
+
     return  hours +
             QString::number(seconds/60) + QString(":") +
-            QString::number(seconds % 60);
+            secs;
 }
 
 
