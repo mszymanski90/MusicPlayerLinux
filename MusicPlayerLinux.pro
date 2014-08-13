@@ -18,7 +18,12 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-QT       += core gui multimedia
+# User variables
+TAGLIB_PATH = ../taglib-1.9.1
+TAGLIB_BIN_PATH = ../taglib-bin
+
+
+QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = MusicPlayerLinux
@@ -31,7 +36,12 @@ linux-g++ {
 
 win32-g++ {
      LIBS += $$PWD/lib/bass.lib
+     LIBS += $$TAGLIB_BIN_PATH/taglib/libtag.dll.a
  }
+
+INCLUDEPATH += $$TAGLIB_PATH/taglib
+INCLUDEPATH += $$TAGLIB_PATH/taglib/toolkit
+INCLUDEPATH += $$TAGLIB_BIN_PATH
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -71,5 +81,3 @@ FORMS    += mainwindow.ui
 
 OTHER_FILES += \
     COPYING
-
-

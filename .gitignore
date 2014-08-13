@@ -12,3 +12,6 @@ Makefile
 *.Debug
 *.Release
 *.autosave
+
+#folders
+taglib

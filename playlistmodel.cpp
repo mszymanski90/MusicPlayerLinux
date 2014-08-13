@@ -1,3 +1,4 @@
+#include "tagextractor.h"
 #include "playlistmodel.h"
 
 PlaylistModel::PlaylistModel(QObject *parent) :
@@ -12,14 +13,14 @@ int PlaylistModel::rowCount(const QModelIndex &parent) const
 
 int PlaylistModel::columnCount(const QModelIndex &parent) const
 {
-    return 1;
+    return 4;
 }
 
 QVariant PlaylistModel::data(const QModelIndex &index, int role) const
 {
     if (role == Qt::DisplayRole)
     {
-        return fileList.at(index.row());
+        return TagExtractor::getTitle(fileList.at(index.row()));
     }
     return QVariant();
 }

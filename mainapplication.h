@@ -25,7 +25,6 @@
 #include "mainwindow.h"
 #include "qseekslider.h"
 #include "playlistmodel.h"
-#include "playlistdata.h"
 #include "core/core.h"
 #include "loggerdevice.h"
 

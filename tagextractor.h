@@ -1,18 +1,16 @@
 #ifndef TAGEXTRACTOR_H
 #define TAGEXTRACTOR_H
 
-#include <QObject>
+#include <QString>
 
-class TagExtractor : public QObject
+class TagExtractor
 {
-    Q_OBJECT
 public:
-    explicit TagExtractor(QObject *parent = 0);
+    static QString getTitle(QString filePath);
+    static QString getArtist(QString filePath);
+    static QString getAlbum(QString filePath);
 
-signals:
-
-public slots:
-
+private:
 };
 
 #endif // TAGEXTRACTOR_H
