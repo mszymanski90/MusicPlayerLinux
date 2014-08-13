@@ -21,6 +21,7 @@
 #include <string>
 #include <QFileDialog>
 #include <QTableView>
+#include <QHeaderView>
 #include <math.h>
 #include "mainapplication.h"
 
@@ -37,6 +38,7 @@ void MainApplication::init()
     core.init();
 
     window.getPlaylist()->setModel(&playlistModel);
+    window.getPlaylist()->verticalHeader()->setVisible(false);
 
     // does this do anything ?
     window.getSeekSld()->setTracking(true);

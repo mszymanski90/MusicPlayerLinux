@@ -1,5 +1,7 @@
 #include <tag.h>
 #include <fileref.h>
+#include <tpropertymap.h>
+#include <QTime>
 #include "tagextractor.h"
 
 QString TagExtractor::getTitle(QString filePath)
@@ -29,3 +31,23 @@ QString TagExtractor::getTrackNo(QString filePath)
     unsigned int trackNo = f.tag()->track();
     return QString::number(trackNo);
 }
+
+QString TagExtractor::getDuration(QString filePath)
+{
+    TagLib::FileRef f(filePath.toStdString().c_str());
+    return secondsToTime(f.audioProperties()->length());
+}
+
+QString TagExtractor::secondsToTime(int seconds)
+{
+    QString hours;
+
+    if(seconds/60/60 == 0) hours = "";
+    else hours = QString::number(seconds/60/60) + QString(":");
+
+    return  hours +
+            QString::number(seconds/60) + QString(":") +
+            QString::number(seconds % 60);
+}
+
+
