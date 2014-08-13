@@ -9,6 +9,7 @@ public:
     static QString getTitle(QString filePath);
     static QString getArtist(QString filePath);
     static QString getAlbum(QString filePath);
+    static QString getTrackNo(QString filePath);
 
 private:
 };

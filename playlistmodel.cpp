@@ -4,6 +4,10 @@
 PlaylistModel::PlaylistModel(QObject *parent) :
     QAbstractTableModel(parent)
 {
+    columns.push_back(QString("Artist"));
+    columns.push_back(QString("Album"));
+    columns.push_back(QString("Track no"));
+    columns.push_back(QString("Title"));
 }
 
 int PlaylistModel::rowCount(const QModelIndex &parent) const
@@ -13,14 +17,18 @@ int PlaylistModel::rowCount(const QModelIndex &parent) const
 
 int PlaylistModel::columnCount(const QModelIndex &parent) const
 {
-    return 4;
+    return columns.size();
 }
 
 QVariant PlaylistModel::data(const QModelIndex &index, int role) const
 {
     if (role == Qt::DisplayRole)
     {
-        return TagExtractor::getTitle(fileList.at(index.row()));
+        int c = index.column();
+        if(columns.at(c) == QString("Album")) return TagExtractor::getAlbum(fileList.at(index.row()));
+        if(columns.at(c) == QString("Artist")) return TagExtractor::getArtist(fileList.at(index.row()));
+        if(columns.at(c) == QString("Track no")) return TagExtractor::getTrackNo(fileList.at(index.row()));
+        if(columns.at(c) == QString("Title")) return TagExtractor::getTitle(fileList.at(index.row()));
     }
     return QVariant();
 }

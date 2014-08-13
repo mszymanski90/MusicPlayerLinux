@@ -35,6 +35,7 @@ signals:
 public slots:
 
 private:
+    QList<QString> columns;
     QList<QString> fileList;
     QList<QString>::iterator currentFile;
 };

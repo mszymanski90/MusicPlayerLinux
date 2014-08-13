@@ -22,3 +22,10 @@ QString TagExtractor::getAlbum(QString filePath)
     TagLib::String album = f.tag()->album();
     return QString(album.toCString());
 }
+
+QString TagExtractor::getTrackNo(QString filePath)
+{
+    TagLib::FileRef f(filePath.toStdString().c_str());
+    unsigned int trackNo = f.tag()->track();
+    return QString::number(trackNo);
+}
