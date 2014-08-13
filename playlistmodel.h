@@ -23,7 +23,7 @@ public:
     bool insertRows(int row, int count, const QModelIndex & parent = QModelIndex());
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
-    void refreshData();
+
 
     // TODO: modify this to use iterators
     void appendFile(QString filePath);
@@ -45,6 +45,7 @@ public:
 signals:
 
 public slots:
+    void refreshData();
 
 private:
     QList<QString> columns;

@@ -48,8 +48,8 @@ private:
 signals:
     void updatePosition(int timeInSeconds);
     void enableSeekSld(bool enable);
-    void resetSeekSld();
-    void loadNextSong();
+    void resetSeekSlider();
+    void statusChanged();
 
 public slots:
     void addFileToPlaylist();

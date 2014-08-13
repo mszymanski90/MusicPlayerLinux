@@ -11,8 +11,6 @@ PlaylistModel::PlaylistModel(QObject *parent) :
     columns.push_back(QString("Track no"));
     columns.push_back(QString("Title"));
     columns.push_back(QString("Duration"));
-
-    //emit headerDataChanged(Qt::Horizontal, 0, columns.size()-1);
 }
 
 int PlaylistModel::rowCount(const QModelIndex &parent) const
@@ -64,8 +62,8 @@ QVariant PlaylistModel::headerData(int section, Qt::Orientation orientation, int
 
 void PlaylistModel::refreshData()
 {
-    QModelIndex topLeft = createIndex(0, 0);
-    QModelIndex bottomRight = createIndex(fileList.size(), columns.size()-1);
+    QModelIndex topLeft = createIndex(0,0);
+    QModelIndex bottomRight = createIndex(fileList.size()-1, columns.size()-1);
     emit dataChanged(topLeft, bottomRight);
 }
 
@@ -131,19 +129,16 @@ int PlaylistModel::getSize()
 void PlaylistModel::displayPlay()
 {
     status = StatusPlay;
-    refreshData();
 }
 
 void PlaylistModel::displayPause()
 {
     status = StatusPause;
-    refreshData();
 }
 
 void PlaylistModel::displayStop()
 {
     status = StatusStop;
-    refreshData();
 }
 
 QString PlaylistModel::determinePlaybackField(int index) const
