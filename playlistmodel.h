@@ -43,9 +43,11 @@ public:
     void displayStop();
 
 signals:
+    void songChanged();
 
 public slots:
     void refreshData();
+    void songDoubleClicked(const QModelIndex& index);
 
 private:
     QList<QString> columns;

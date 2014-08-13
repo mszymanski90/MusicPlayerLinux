@@ -64,6 +64,8 @@ void MainApplication::init()
     connect(this, SIGNAL(resetSeekSlider()), window.getSeekSld(), SLOT(resetToStoppedPos()));
     connect(this, SIGNAL(statusChanged()), &playlistModel, SLOT(refreshData()));
     connect(this, SIGNAL(enableSeekSld(bool)), window.getSeekSld(), SLOT(setEnabled(bool)));
+    connect(window.getPlaylist(), SIGNAL(doubleClicked(QModelIndex)), &playlistModel, SLOT(songDoubleClicked(QModelIndex)));
+    connect(&playlistModel, SIGNAL(songChanged()), this, SLOT(play()));
 }
 
 void MainApplication::update(bool playbackStopped, double position, double duration)
@@ -106,6 +108,7 @@ void MainApplication::play()
         QString filePath = playlistModel.getCurrentFile();
         logger.log(std::string("MA load file"));
         QByteArray qtpath = filePath.toLocal8Bit();
+        core.stop();
         core.loadFile(qtpath.constData());
         core.play();
         playlistModel.displayPlay();

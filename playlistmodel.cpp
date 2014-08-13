@@ -67,6 +67,12 @@ void PlaylistModel::refreshData()
     emit dataChanged(topLeft, bottomRight);
 }
 
+void PlaylistModel::songDoubleClicked(const QModelIndex &index)
+{
+    currentFile = fileList.begin() + index.row();
+    emit songChanged();
+}
+
 void PlaylistModel::appendFile(QString filePath)
 {
     insertRows(1, 1);
