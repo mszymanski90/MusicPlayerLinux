@@ -39,11 +39,13 @@ void MainApplication::init()
 
     window.getPlaylist()->setModel(&playlistModel);
     window.getPlaylist()->verticalHeader()->setVisible(false);
-    window.getPlaylist()->setColumnWidth(0, 60);
-    window.getPlaylist()->setColumnWidth(1, 200);
-    window.getPlaylist()->setColumnWidth(2, 200);
+    window.getPlaylist()->verticalHeader()->setDefaultSectionSize(20);
+
+    window.getPlaylist()->setColumnWidth(0, 50);
+    window.getPlaylist()->setColumnWidth(1, 190);
+    window.getPlaylist()->setColumnWidth(2, 190);
     window.getPlaylist()->setColumnWidth(3, 60);
-    window.getPlaylist()->setColumnWidth(4, 200);
+    window.getPlaylist()->setColumnWidth(4, 190);
     window.getPlaylist()->setColumnWidth(5, 60);
 
 
@@ -79,10 +81,12 @@ void MainApplication::update(bool playbackStopped, double position, double durat
 void MainApplication::addFileToPlaylist()
 {
     QString filePath = QFileDialog::getOpenFileName(&window,
-             tr("Open file"), "/home/jana", tr("Image Files (*.mp3 *.m4a *.ogg)"));
+             tr("Open file"), "/home/jana", tr("Sound files (*.mp3 *.ogg)"));
 
-    playlistModel.appendFile(filePath);
-    //playlistModel.refreshData();
+    if(QFile::exists(filePath))
+    {
+        playlistModel.appendFile(filePath);
+    }
 }
 
 void MainApplication::play()

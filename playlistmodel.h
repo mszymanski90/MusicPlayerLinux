@@ -38,12 +38,13 @@ public:
     void resetPlaylist();
     int getSize();
 
-signals:
-
-public slots:
     void displayPlay();
     void displayPause();
     void displayStop();
+
+signals:
+
+public slots:
 
 private:
     QList<QString> columns;
