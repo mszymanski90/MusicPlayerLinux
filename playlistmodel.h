@@ -8,12 +8,20 @@ class PlaylistModel : public QAbstractTableModel
 {
     Q_OBJECT
 
+    enum PlaybackStatus
+    {
+        StatusStop = 0,
+        StatusPause = 1,
+        StatusPlay = 2
+    };
+
 public:
     explicit PlaylistModel(QObject *parent = 0);
     int rowCount(const QModelIndex &parent = QModelIndex()) const ;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     bool insertRows(int row, int count, const QModelIndex & parent = QModelIndex());
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
     void refreshData();
 
@@ -33,11 +41,19 @@ public:
 signals:
 
 public slots:
+    void displayPlay();
+    void displayPause();
+    void displayStop();
 
 private:
     QList<QString> columns;
     QList<QString> fileList;
     QList<QString>::iterator currentFile;
+    PlaybackStatus status;
+    int currentlyPlayed;
+
+    void refreshPlaylist();
+    QString determinePlaybackField(int index) const;
 };
 
 #endif // PLAYLISTMODEL_H

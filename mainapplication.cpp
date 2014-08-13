@@ -39,6 +39,13 @@ void MainApplication::init()
 
     window.getPlaylist()->setModel(&playlistModel);
     window.getPlaylist()->verticalHeader()->setVisible(false);
+    window.getPlaylist()->setColumnWidth(0, 60);
+    window.getPlaylist()->setColumnWidth(1, 200);
+    window.getPlaylist()->setColumnWidth(2, 200);
+    window.getPlaylist()->setColumnWidth(3, 60);
+    window.getPlaylist()->setColumnWidth(4, 200);
+    window.getPlaylist()->setColumnWidth(5, 60);
+
 
     // does this do anything ?
     window.getSeekSld()->setTracking(true);
@@ -87,6 +94,7 @@ void MainApplication::play()
         QByteArray qtpath = filePath.toLocal8Bit();
         core.loadFile(qtpath.constData());
         core.play();
+        playlistModel.displayPlay();
     }
     else
     {
@@ -98,6 +106,7 @@ void MainApplication::play()
 void MainApplication::pause()
 {
     core.pause();
+    playlistModel.displayPause();
 }
 
 void MainApplication::setVolume(double volumeInPower)
@@ -109,6 +118,7 @@ void MainApplication::stop()
 {
     core.stop();
     emit resetSeekSld();
+    playlistModel.displayStop();
 }
 
 void MainApplication::seek(int timeInSeconds)

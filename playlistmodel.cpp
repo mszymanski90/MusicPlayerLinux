@@ -2,13 +2,17 @@
 #include "playlistmodel.h"
 
 PlaylistModel::PlaylistModel(QObject *parent) :
-    QAbstractTableModel(parent)
+    QAbstractTableModel(parent),
+    currentlyPlayed(-1)
 {
+    columns.push_back(QString("Playing"));
     columns.push_back(QString("Artist"));
     columns.push_back(QString("Album"));
     columns.push_back(QString("Track no"));
     columns.push_back(QString("Title"));
     columns.push_back(QString("Duration"));
+
+    //emit headerDataChanged(Qt::Horizontal, 0, columns.size()-1);
 }
 
 int PlaylistModel::rowCount(const QModelIndex &parent) const
@@ -26,6 +30,10 @@ QVariant PlaylistModel::data(const QModelIndex &index, int role) const
     if (role == Qt::DisplayRole)
     {
         int c = index.column();
+        if(columns.at(c) == QString("Playing"))
+        {
+            return determinePlaybackField(index.row());
+        }
         if(columns.at(c) == QString("Album")) return TagExtractor::getAlbum(fileList.at(index.row()));
         if(columns.at(c) == QString("Artist")) return TagExtractor::getArtist(fileList.at(index.row()));
         if(columns.at(c) == QString("Track no")) return TagExtractor::getTrackNo(fileList.at(index.row()));
@@ -42,10 +50,22 @@ bool PlaylistModel::insertRows(int row, int count, const QModelIndex &parent)
     endInsertRows();
 }
 
+QVariant PlaylistModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    if (role == Qt::DisplayRole)
+    {
+        if(orientation == Qt::Horizontal)
+        {
+            return columns.at(section);
+        }
+    }
+    return QVariant();
+}
+
 void PlaylistModel::refreshData()
 {
     QModelIndex topLeft = createIndex(0, 0);
-    QModelIndex bottomRight = createIndex(fileList.size(), 0);
+    QModelIndex bottomRight = createIndex(fileList.size(), columns.size()-1);
     emit dataChanged(topLeft, bottomRight);
 }
 
@@ -74,7 +94,11 @@ QString PlaylistModel::getFileAtPosition(const int position)
 
 QString PlaylistModel::getCurrentFile()
 {
-    if(!fileList.empty()) return *currentFile;
+    if(!fileList.empty())
+    {
+        currentlyPlayed = currentFile - fileList.begin();
+        return *currentFile;
+    }
     else return tr("");
 }
 
@@ -102,5 +126,31 @@ void PlaylistModel::resetPlaylist()
 int PlaylistModel::getSize()
 {
     return fileList.size();
+}
+
+void PlaylistModel::displayPlay()
+{
+    status = StatusPlay;
+    refreshData();
+}
+
+void PlaylistModel::displayPause()
+{
+    status = StatusPause;
+    refreshData();
+}
+
+void PlaylistModel::displayStop()
+{
+    status = StatusStop;
+    refreshData();
+}
+
+QString PlaylistModel::determinePlaybackField(int index) const
+{
+    if(index == currentlyPlayed)
+        if(status == StatusPlay) return QString(">");
+
+    return QString(" ");
 }
 
