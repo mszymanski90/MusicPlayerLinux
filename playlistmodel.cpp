@@ -3,7 +3,7 @@
 
 PlaylistModel::PlaylistModel(QObject *parent) :
     QAbstractTableModel(parent),
-    currentlyPlayed(-1)
+    currentlyPlayed(StatusStop)
 {
     columns.push_back(QString("Playing"));
     columns.push_back(QString("Artist"));
@@ -69,7 +69,7 @@ void PlaylistModel::refreshData()
 
 void PlaylistModel::songDoubleClicked(const QModelIndex &index)
 {
-    currentFile = fileList.begin() + index.row();
+    currentFile = index.row();
     emit songChanged();
 }
 
@@ -77,13 +77,16 @@ void PlaylistModel::appendFile(QString filePath)
 {
     insertRows(1, 1);
     fileList.append(filePath);
-    if(fileList.size() == 1) currentFile = fileList.begin();
+    if(fileList.size() == 1)
+    {
+        currentFile = 0;
+    }
 }
 
 void PlaylistModel::insertFileAtPosition(QString filePath, const int position)
 {
     fileList.insert(position, filePath);
-    if(fileList.size() == 1) currentFile = fileList.begin();
+    if(fileList.size() == 1) currentFile = 0;
 }
 
 void PlaylistModel::removeFileByPosition(const int position)
@@ -100,31 +103,31 @@ QString PlaylistModel::getCurrentFile()
 {
     if(!fileList.empty())
     {
-        currentlyPlayed = currentFile - fileList.begin();
-        return *currentFile;
+        currentlyPlayed = currentFile;
+        return fileList.at(currentFile);
     }
     else return tr("");
 }
 
 void PlaylistModel::next()
 {
-    if(currentFile != fileList.end()) currentFile++;
+    if(currentFile < fileList.size()) currentFile++;
 }
 
 void PlaylistModel::previous()
 {
-    if(currentFile != fileList.begin()) currentFile--;
+    if(currentFile > 0) currentFile--;
 }
 
 bool PlaylistModel::isFileInQueue()
 {
-    if(currentFile != fileList.end()) return true;
+    if(currentFile < fileList.size()) return true;
     else return false;
 }
 
 void PlaylistModel::resetPlaylist()
 {
-    currentFile = fileList.begin();
+    currentFile = 0;
 }
 
 int PlaylistModel::getSize()

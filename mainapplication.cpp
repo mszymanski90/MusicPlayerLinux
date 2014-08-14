@@ -104,10 +104,10 @@ void MainApplication::play()
 
     if(playlistModel.isFileInQueue())
     {
+        logger.log(std::string("play()"));
         emit statusChanged();
         QString filePath = playlistModel.getCurrentFile();
-        logger.log(std::string("MA load file"));
-        QByteArray qtpath = filePath.toLocal8Bit();
+        QByteArray qtpath = filePath.toUtf8();
         core.stop();
         core.loadFile(qtpath.constData());
         core.play();

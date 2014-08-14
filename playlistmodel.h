@@ -2,7 +2,7 @@
 #define PLAYLISTMODEL_H
 
 #include <QAbstractTableModel>
-#include <QList>
+#include <QVector>
 
 class PlaylistModel : public QAbstractTableModel
 {
@@ -50,9 +50,9 @@ public slots:
     void songDoubleClicked(const QModelIndex& index);
 
 private:
-    QList<QString> columns;
-    QList<QString> fileList;
-    QList<QString>::iterator currentFile;
+    QVector<QString> columns;
+    QVector<QString> fileList;
+    int currentFile;
     PlaybackStatus status;
     int currentlyPlayed;
 
