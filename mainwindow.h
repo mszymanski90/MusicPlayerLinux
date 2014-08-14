@@ -26,6 +26,7 @@
 #include <QSlider>
 #include <QListWidget>
 #include <QTableView>
+#include <QCloseEvent>
 #include "qseekslider.h"
 #include "qvolumeslider.h"
 
@@ -40,11 +41,13 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void closeEvent(QCloseEvent* event);
 
     QPushButton* getPlayBt();
     QPushButton* getPauseBt();
     QPushButton* getStopBt();
     QPushButton* getAddBt();
+    QPushButton* getSavePlaylistBt();
     QVolumeSlider *getVolumeSld();
     QSeekSlider* getSeekSld();
     QTableView* getPlaylist();

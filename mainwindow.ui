@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>781</width>
-    <height>328</height>
+    <height>330</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -112,6 +112,19 @@
       <width>761</width>
       <height>201</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="savePlaylistBt">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>250</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Save playlist</string>
     </property>
    </widget>
   </widget>

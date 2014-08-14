@@ -22,6 +22,7 @@
 #include <QFileDialog>
 #include <QTableView>
 #include <QHeaderView>
+#include <QSettings>
 #include <math.h>
 #include "mainapplication.h"
 
@@ -36,6 +37,9 @@ void MainApplication::init()
 {
     window.show();
     core.init();
+
+    QSettings settings;
+    window.resize(settings.value("MainWindowSize", QSize(781, 330)).toSize());
 
     window.getPlaylist()->setModel(&playlistModel);
     window.getPlaylist()->verticalHeader()->setVisible(false);
@@ -66,6 +70,7 @@ void MainApplication::init()
     connect(this, SIGNAL(enableSeekSld(bool)), window.getSeekSld(), SLOT(setEnabled(bool)));
     connect(window.getPlaylist(), SIGNAL(doubleClicked(QModelIndex)), &playlistModel, SLOT(songDoubleClicked(QModelIndex)));
     connect(&playlistModel, SIGNAL(songChanged()), this, SLOT(play()));
+    connect(window.getSavePlaylistBt(), SIGNAL(clicked()), &playlistModel, SLOT(savePlaylist()));
 }
 
 void MainApplication::update(bool playbackStopped, double position, double duration)

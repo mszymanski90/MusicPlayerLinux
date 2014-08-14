@@ -24,6 +24,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setOrganizationName("Music Player Linux");
+    a.setApplicationName("Music Player Linux");
+
     MainApplication mainApp;
     mainApp.init();
 

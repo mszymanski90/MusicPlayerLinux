@@ -20,6 +20,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QSettings>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -31,6 +32,13 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    QSettings settings;
+    settings.setValue("MainWindowSize", size());
+    event->accept();
 }
 
 QPushButton *MainWindow::getPlayBt()
@@ -51,6 +59,11 @@ QPushButton* MainWindow::getStopBt()
 QPushButton *MainWindow::getAddBt()
 {
     return ui->addBt;
+}
+
+QPushButton *MainWindow::getSavePlaylistBt()
+{
+    return ui->savePlaylistBt;
 }
 
 QVolumeSlider *MainWindow::getVolumeSld()

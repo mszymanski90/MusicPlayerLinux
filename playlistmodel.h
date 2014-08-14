@@ -48,6 +48,7 @@ signals:
 public slots:
     void refreshData();
     void songDoubleClicked(const QModelIndex& index);
+    void savePlaylist();
 
 private:
     QVector<QString> columns;
