@@ -80,4 +80,5 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui
 
 OTHER_FILES += \
-    COPYING
+    COPYING \
+    README.md
