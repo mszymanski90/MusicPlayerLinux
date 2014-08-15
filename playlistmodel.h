@@ -21,6 +21,7 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     bool insertRows(int row, int count, const QModelIndex & parent = QModelIndex());
+    bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex());
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
 
@@ -36,6 +37,7 @@ public:
     void previous();
     bool isFileInQueue();
     void resetPlaylist();
+    void erasePlaylist();
     int getSize();
 
     void displayPlay();

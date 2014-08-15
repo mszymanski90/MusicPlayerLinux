@@ -53,11 +53,13 @@ signals:
 
 public slots:
     void addFileToPlaylist();
+    void addFolderToPlaylist();
     void play();
     void pause();
     void setVolume(double volumeInPower);
     void stop();
     void seek(int timeInSeconds);
+    void newPlaylist();
     void openPlaylist();
     void savePlaylist();
 };

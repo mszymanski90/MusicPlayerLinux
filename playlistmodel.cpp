@@ -51,6 +51,13 @@ bool PlaylistModel::insertRows(int row, int count, const QModelIndex &parent)
     endInsertRows();
 }
 
+bool PlaylistModel::removeRows(int row, int count, const QModelIndex &parent)
+{
+    beginRemoveRows(parent, row, row+count-1);
+
+    endRemoveRows();
+}
+
 QVariant PlaylistModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role == Qt::DisplayRole)
@@ -160,6 +167,15 @@ bool PlaylistModel::isFileInQueue()
 void PlaylistModel::resetPlaylist()
 {
     currentFile = 0;
+}
+
+void PlaylistModel::erasePlaylist()
+{
+    removeRows(0, fileList.size());
+    fileList.clear();
+    currentFile = 0;
+    currentlyPlayed = -1;
+    status = StatusStop;
 }
 
 int PlaylistModel::getSize()

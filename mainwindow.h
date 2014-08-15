@@ -46,10 +46,12 @@ public:
     QPushButton* getPlayBt();
     QPushButton* getPauseBt();
     QPushButton* getStopBt();
-    QPushButton* getAddBt();
     QVolumeSlider *getVolumeSld();
     QSeekSlider* getSeekSld();
     QTableView* getPlaylist();
+    QAction* getAdd_fileAc();
+    QAction* getAdd_folderAc();
+    QAction* getNew_playlistAc();
     QAction* getOpen_playlistAc();
     QAction* getSave_playlistAc();
 

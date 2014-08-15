@@ -57,11 +57,6 @@ QPushButton* MainWindow::getStopBt()
     return ui->stopBt;
 }
 
-QPushButton *MainWindow::getAddBt()
-{
-    return ui->addBt;
-}
-
 QVolumeSlider *MainWindow::getVolumeSld()
 {
     return ui->volumeSld;
@@ -75,6 +70,21 @@ QSeekSlider *MainWindow::getSeekSld()
 QTableView *MainWindow::getPlaylist()
 {
     return ui->playlist;
+}
+
+QAction *MainWindow::getAdd_fileAc()
+{
+    return ui->actionAdd_file;
+}
+
+QAction *MainWindow::getAdd_folderAc()
+{
+    return ui->actionAdd_folder;
+}
+
+QAction *MainWindow::getNew_playlistAc()
+{
+    return ui->actionClear_playlist;
 }
 
 QAction *MainWindow::getOpen_playlistAc()

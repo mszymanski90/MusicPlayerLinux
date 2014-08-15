@@ -59,10 +59,18 @@ void MainApplication::init()
     window.getSeekSld()->setTracking(true);
     window.getSeekSld()->setDisabled(true);
 
+    // buttons
     connect(window.getPlayBt(), SIGNAL(clicked()), this, SLOT(play()));
     connect(window.getPauseBt(), SIGNAL(clicked()), this, SLOT(pause()));
     connect(window.getStopBt(), SIGNAL(clicked()), this, SLOT(stop()));
-    connect(window.getAddBt(), SIGNAL(clicked()), this, SLOT(addFileToPlaylist()));
+
+    // menu actions
+    connect(window.getAdd_fileAc(), SIGNAL(triggered()), this, SLOT(addFileToPlaylist()));
+    connect(window.getAdd_folderAc(), SIGNAL(triggered()), this, SLOT(addFolderToPlaylist()));
+    connect(window.getNew_playlistAc(), SIGNAL(triggered()), this, SLOT(newPlaylist()));
+    connect(window.getOpen_playlistAc(), SIGNAL(triggered()), this, SLOT(openPlaylist()));
+    connect(window.getSave_playlistAc(), SIGNAL(triggered()), this, SLOT(savePlaylist()));
+
     connect(window.getVolumeSld(), SIGNAL(volumeChanged(double)), this, SLOT(setVolume(double)));
     connect(window.getSeekSld(), SIGNAL(valueChangedByUser(int)), this, SLOT(seek(int)));
     connect(this, SIGNAL(updatePosition(int)), window.getSeekSld(), SLOT(updatePosition(int)));
@@ -71,8 +79,6 @@ void MainApplication::init()
     connect(this, SIGNAL(enableSeekSld(bool)), window.getSeekSld(), SLOT(setEnabled(bool)));
     connect(window.getPlaylist(), SIGNAL(doubleClicked(QModelIndex)), &playlistModel, SLOT(songDoubleClicked(QModelIndex)));
     connect(&playlistModel, SIGNAL(songChanged()), this, SLOT(play()));
-    connect(window.getOpen_playlistAc(), SIGNAL(triggered()), this, SLOT(openPlaylist()));
-    connect(window.getSave_playlistAc(), SIGNAL(triggered()), this, SLOT(savePlaylist()));
     connect(&window, SIGNAL(savePlaylistOnClose(QString)), &playlistModel, SLOT(savePlaylist(QString)));
 
     playlistModel.openPlaylist(QString("playlist.m3u"));
@@ -98,12 +104,33 @@ void MainApplication::update(bool playbackStopped, double position, double durat
 
 void MainApplication::addFileToPlaylist()
 {
-    QString filePath = QFileDialog::getOpenFileName(&window,
-             tr("Open file"), "/home/jana", tr("Sound files (*.mp3 *.ogg)"));
+    QStringList fileList = QFileDialog::getOpenFileNames(&window, tr("Add file"),
+                                  "/home/jana", tr("Sound files (*.mp3 *.ogg)"));
 
-    if(QFile::exists(filePath))
+    foreach(auto file, fileList)
     {
-        playlistModel.appendFile(filePath);
+        if(QFile::exists(file))
+        {
+            playlistModel.appendFile(file);
+        }
+    }
+}
+
+void MainApplication::addFolderToPlaylist()
+{
+    QDir dir(QFileDialog::getExistingDirectory(&window, tr("Add folder"), "/home/jana"));
+    logger.log(dir.path().toStdString());
+    QStringList filters;
+    filters << "*.mp3";
+    dir.setNameFilters(filters);
+    QStringList fileList = dir.entryList();
+
+    foreach(auto file, fileList)
+    {
+        if(QFile::exists(dir.path()+QString("/")+file))
+        {
+            playlistModel.appendFile(dir.path()+QString("/")+file);
+        }
     }
 }
 
@@ -153,6 +180,11 @@ void MainApplication::stop()
 void MainApplication::seek(int timeInSeconds)
 {
     core.seek(ceil(timeInSeconds*duration_/100));
+}
+
+void MainApplication::newPlaylist()
+{
+    playlistModel.erasePlaylist();
 }
 
 void MainApplication::openPlaylist()
