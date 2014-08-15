@@ -1,5 +1,6 @@
 #include <QFile>
 #include <QTextStream>
+#include <QFileDialog>
 #include "tagextractor.h"
 #include "playlistmodel.h"
 
@@ -75,9 +76,24 @@ void PlaylistModel::songDoubleClicked(const QModelIndex &index)
     emit songChanged();
 }
 
-void PlaylistModel::savePlaylist()
+void PlaylistModel::openPlaylist(QString filePath)
 {
-    QFile file("playlist.m3u");
+    QFile file(filePath);
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    QTextStream finput(&file);
+    fileList.clear();
+    while(!finput.atEnd())
+    {
+        appendFile(finput.readLine());
+    }
+}
+
+void PlaylistModel::savePlaylist(QString filePath)
+{
+    QFile file(filePath);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
 

@@ -58,6 +58,8 @@ public slots:
     void setVolume(double volumeInPower);
     void stop();
     void seek(int timeInSeconds);
+    void openPlaylist();
+    void savePlaylist();
 };
 
 #endif // MAINAPPLICATION_H

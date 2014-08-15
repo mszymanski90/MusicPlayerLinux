@@ -38,6 +38,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     QSettings settings;
     settings.setValue("MainWindowSize", size());
+    emit savePlaylistOnClose(QString("playlist.m3u"));
     event->accept();
 }
 
@@ -61,11 +62,6 @@ QPushButton *MainWindow::getAddBt()
     return ui->addBt;
 }
 
-QPushButton *MainWindow::getSavePlaylistBt()
-{
-    return ui->savePlaylistBt;
-}
-
 QVolumeSlider *MainWindow::getVolumeSld()
 {
     return ui->volumeSld;
@@ -79,4 +75,14 @@ QSeekSlider *MainWindow::getSeekSld()
 QTableView *MainWindow::getPlaylist()
 {
     return ui->playlist;
+}
+
+QAction *MainWindow::getOpen_playlistAc()
+{
+    return ui->actionOpen_playlist;
+}
+
+QAction *MainWindow::getSave_playlistAc()
+{
+    return ui->actionSave_playlist;
 }

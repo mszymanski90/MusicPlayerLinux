@@ -47,10 +47,14 @@ public:
     QPushButton* getPauseBt();
     QPushButton* getStopBt();
     QPushButton* getAddBt();
-    QPushButton* getSavePlaylistBt();
     QVolumeSlider *getVolumeSld();
     QSeekSlider* getSeekSld();
     QTableView* getPlaylist();
+    QAction* getOpen_playlistAc();
+    QAction* getSave_playlistAc();
+
+signals:
+    void savePlaylistOnClose(QString filePath);
 
 private:
     Ui::MainWindow *ui;

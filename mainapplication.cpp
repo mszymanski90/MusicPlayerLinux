@@ -23,6 +23,7 @@
 #include <QTableView>
 #include <QHeaderView>
 #include <QSettings>
+#include <QAction>
 #include <math.h>
 #include "mainapplication.h"
 
@@ -70,7 +71,11 @@ void MainApplication::init()
     connect(this, SIGNAL(enableSeekSld(bool)), window.getSeekSld(), SLOT(setEnabled(bool)));
     connect(window.getPlaylist(), SIGNAL(doubleClicked(QModelIndex)), &playlistModel, SLOT(songDoubleClicked(QModelIndex)));
     connect(&playlistModel, SIGNAL(songChanged()), this, SLOT(play()));
-    connect(window.getSavePlaylistBt(), SIGNAL(clicked()), &playlistModel, SLOT(savePlaylist()));
+    connect(window.getOpen_playlistAc(), SIGNAL(triggered()), this, SLOT(openPlaylist()));
+    connect(window.getSave_playlistAc(), SIGNAL(triggered()), this, SLOT(savePlaylist()));
+    connect(&window, SIGNAL(savePlaylistOnClose(QString)), &playlistModel, SLOT(savePlaylist(QString)));
+
+    playlistModel.openPlaylist(QString("playlist.m3u"));
 }
 
 void MainApplication::update(bool playbackStopped, double position, double duration)
@@ -148,4 +153,16 @@ void MainApplication::stop()
 void MainApplication::seek(int timeInSeconds)
 {
     core.seek(ceil(timeInSeconds*duration_/100));
+}
+
+void MainApplication::openPlaylist()
+{
+    playlistModel.openPlaylist(QFileDialog::getOpenFileName(&window, tr("Open file"), "/home/jana",
+                                                            tr("Playlists (*.m3u)")));
+}
+
+void MainApplication::savePlaylist()
+{
+    playlistModel.savePlaylist(QFileDialog::getSaveFileName(&window, tr("Save playlist"), "/home/jana",
+                                                            tr("Playlist (*.m3u)")));
 }
