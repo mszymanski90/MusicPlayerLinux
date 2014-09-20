@@ -46,16 +46,22 @@ QVariant PlaylistModel::data(const QModelIndex &index, int role) const
 
 bool PlaylistModel::insertRows(int row, int count, const QModelIndex &parent)
 {
-    beginInsertRows(parent, row, row+count-1);
-
-    endInsertRows();
+    if(count >= 1)
+    {
+        beginInsertRows(parent, row, row+count-1);
+        fileList.insert(row, count, QString());
+        endInsertRows();
+    }
 }
 
 bool PlaylistModel::removeRows(int row, int count, const QModelIndex &parent)
 {
-    beginRemoveRows(parent, row, row+count-1);
-
-    endRemoveRows();
+    if(count >= 1)
+    {
+        beginRemoveRows(parent, row, row+count-1);
+        fileList.remove(row, count);
+        endRemoveRows();
+    }
 }
 
 QVariant PlaylistModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -114,8 +120,8 @@ void PlaylistModel::savePlaylist(QString filePath)
 
 void PlaylistModel::appendFile(QString filePath)
 {
-    insertRows(1, 1);
-    fileList.append(filePath);
+    insertRows(fileList.size(), 1);
+    *(fileList.end()-1) = filePath;
     if(fileList.size() == 1)
     {
         currentFile = 0;
@@ -172,7 +178,6 @@ void PlaylistModel::resetPlaylist()
 void PlaylistModel::erasePlaylist()
 {
     removeRows(0, fileList.size());
-    fileList.clear();
     currentFile = 0;
     currentlyPlayed = -1;
     status = StatusStop;
