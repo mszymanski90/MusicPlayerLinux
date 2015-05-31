@@ -14,4 +14,5 @@ Makefile
 *.autosave
 
 #folders
-taglib
+build
+bass
